@@ -12,10 +12,7 @@ public class Route extends Arc{
 		super(idn1,idn2);
 		this.distance=CalculDistanceEuc(idn1, idn2);
 	}
-	/**MAIN*/
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-	}
+
 	/**METHODES*/
 	public double CalculDistanceEuc(Ville idn1, Ville idn2){
 		int x1=idn1.x;

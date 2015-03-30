@@ -16,12 +16,6 @@ public class Noeud {
 		Graph.idn=Graph.idn+1;
 	}
 	
-	/**MAIN*/
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-	
 	/**METHODES*/
 	public String toString(){
 		String str="Identifiant : "+this.idn;

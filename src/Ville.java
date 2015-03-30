@@ -15,10 +15,6 @@ public class Ville extends Noeud{
 		this.y=y;
 		this.nom=nom;
 	}
-	/**MAIN*/
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
-	}
 	/**METHODES*/
 }
