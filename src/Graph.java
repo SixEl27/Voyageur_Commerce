@@ -22,10 +22,7 @@ public class Graph {
 			H.liste_noeud.add(n);
 		}
 	}
-	/**MAIN*/
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-	}
+
 	/**METHODES*/
 	public void AjouterNoeud(Noeud N){
 		for(Noeud n : this.liste_noeud){

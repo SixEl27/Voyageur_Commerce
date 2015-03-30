@@ -3,14 +3,6 @@ import java.util.ArrayList;
 
 public class Nopt {
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 
 	public Graph Nopt(Graph G){
 		Graph H=new Graph(G.nomG);
@@ -55,18 +47,18 @@ public class Nopt {
 
 	//fonction 2-opt ( G : Graphe, H : CycleHamiltonien )
 
-	//  amélioration : booléen := vrai
-	// Tant que amélioration = vrai faire
+	//  amï¿½lioration : boolï¿½en := vrai
+	// Tant que amï¿½lioration = vrai faire
 
-	//   amélioration := faux;
+	//   amï¿½lioration := faux;
 	// Pour tout sommet xi de H faire
 
-	//   Pour tout sommet xj de H, avec j différent de i-1 et i+1 faire
+	//   Pour tout sommet xj de H, avec j diffï¿½rent de i-1 et i+1 faire
 
 	//     Si distance(xi, xi+1) + distance(xj, xj+1) > distance(xi, xj) + distance(xi+1, xj+1) alors
 
-	//       Remplacer les arêtes (xi, xi+1) et (xj, xj+1) par (xi, xj) et (xi+1, xj+1) dans H
-	//     amélioration := vrai;
+	//       Remplacer les arï¿½tes (xi, xi+1) et (xj, xj+1) par (xi, xj) et (xi+1, xj+1) dans H
+	//     amï¿½lioration := vrai;
 
 	//retourner H
 
