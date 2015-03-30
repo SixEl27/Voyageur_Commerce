@@ -12,14 +12,19 @@ public class Nopt {
 	}
 
 	public ArrayList<Ville> Nopt(Graph G){
-		ArrayList<Ville> H=new ArrayList<Ville>();
+		Graph H=new Graph(G.nomG);
+		
 		boolean amelio=true;
 		while(amelio==true){
 			amelio=false;
 			for(Noeud xi : G.liste_noeud){
-				
+				for(Noeud xj : G.liste_noeud){
+					if(xj.idn!=xi.idn-1 && xj.idn!=xi.idn+1){
+						
+					}
+				}
 			}
-		}
+		
 		return H;
 	}
 	
