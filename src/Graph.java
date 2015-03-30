@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-
+//A VRFIRIFER HISTOIRE D'ABSTRACTION
 public class Graph {
 
 	/**
@@ -16,6 +16,12 @@ public class Graph {
 		this.nomG=nom;
 		this.liste_noeud= new ArrayList<Noeud>();
 	}
+	public Graph(Graph G){
+		Graph H = new Graph(G.nomG+"_copie");
+		for(Noeud n : G.liste_noeud){
+			H.liste_noeud.add(n);
+		}
+	}
 	/**MAIN*/
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -28,5 +34,14 @@ public class Graph {
 			n.liste_arc.add(a);
 		}
 		this.liste_noeud.add(N);
+	}
+	public Noeud RecupererNoeud(int idno){
+		Noeud n=new Noeud();
+		for(Noeud n2 : this.liste_noeud){
+			if(n2.idn==idno){
+				n=n2;
+			}
+		}
+		return n;
 	}
 }
