@@ -15,6 +15,11 @@ public class Ville extends Noeud{
 		this.y=y;
 		this.nom=nom;
 	}
+	
+	public Ville(){
+		super();
+		
+	}
 
 	/**METHODES*/
 }
