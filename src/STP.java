@@ -15,4 +15,5 @@ public class STP extends Graph{
 		Ville v = new Ville(x,y,nom);
 		super.AjouterNoeud(v);
 	}
+	public void Affiche
 }
