@@ -4,6 +4,7 @@ import java.util.Random;
 public class GenerationAleatoire {
 	
 	//Methodes
+	//exemple pour montrer comment marche git et github
 	public static String generateString(String characters, int length)
 	{
 		Random rng = new Random();
