@@ -12,7 +12,7 @@ public class Nopt {
 			for(Noeud xi : H.liste_noeud){
 				for(Noeud xj : H.liste_noeud){
 					
-					if(xj.idn!=xi.idn-1 && xj.idn!=xi.idn+1 && xj.idn!=xi.idn){
+					if(xj.idn!=xi.idn-1 && xj.idn!=xi.idn+1 && xj.idn!=xi.idn){ //modif thomas
 						Noeud xip1= H.RecupererNoeud(xi.idn+1);
 						Noeud xim1= H.RecupererNoeud(xi.idn-1);
 						Noeud xjp1= H.RecupererNoeud(xj.idn+1);
