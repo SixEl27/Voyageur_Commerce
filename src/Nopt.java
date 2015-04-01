@@ -11,7 +11,8 @@ public class Nopt {
 			amelio=false;
 			for(Noeud xi : H.liste_noeud){
 				for(Noeud xj : H.liste_noeud){
-					if(xj.idn!=xi.idn-1 && xj.idn!=xi.idn+1){
+					
+					if(xj.idn!=xi.idn-1 && xj.idn!=xi.idn+1 && xj.idn!=xi.idn){
 						Noeud xip1= H.RecupererNoeud(xi.idn+1);
 						Noeud xim1= H.RecupererNoeud(xi.idn-1);
 						Noeud xjp1= H.RecupererNoeud(xj.idn+1);
