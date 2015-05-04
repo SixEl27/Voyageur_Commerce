@@ -10,7 +10,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		System.out.println("ceci est le main");
 		VDC vdc_test=new VDC("ceci est un probleme");
-		System.out.println(vdc_test);
+		//System.out.println(vdc_test);
 	}
 
 }
