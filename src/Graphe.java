@@ -24,13 +24,14 @@ public class Graphe {
 	}
 
 	/**METHODES*/
-	public void AjouterNoeud(Noeud N){
-		for(Noeud n : this.liste_noeud){
-			Arc a=new Arc(N,n);
-			N.liste_arc.add(a);
-			n.liste_arc.add(a);
+	public void AjouterNoeud(Noeud source){      //Pour le noeud courant
+		for(Noeud destination : this.liste_noeud){    //Parcours des autres noeuds dans le graphe
+			Arc sens=new Arc(source,destination);   //Arc source-destination
+                        Arc antisens=new Arc(destination,source);   //Arc destination-source
+			source.liste_arc.add(sens);                 
+			destination.liste_arc.add(antisens);
 		}
-		this.liste_noeud.add(N);
+		this.liste_noeud.add(source);
 	}
 	public Noeud RecupererNoeud(int idno){
 		Noeud n=new Noeud();

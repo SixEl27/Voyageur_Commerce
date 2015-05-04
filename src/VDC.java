@@ -1,4 +1,7 @@
 
+import java.util.ArrayList;
+
+
 public class VDC extends Graphe{
 
 	/**
@@ -18,6 +21,23 @@ public class VDC extends Graphe{
 		}
 	}
         
+        
+        public ArrayList<Integer> Nopt2(VDC V){
+            ArrayList<Integer> H= new ArrayList<Integer>();
+            boolean amelio=true;
+            while(amelio==true){
+		amelio=false;
+                for(Noeud n : V.liste_noeud){
+                    Ville v = (Ville)n;
+                    for(Noeud n2 : V.liste_noeud){
+                        Ville v2 = (Ville)n2;
+                    }
+                }
+            }
+            return H;
+        }
+        
+        /**
         public Graphe Nopt(Graphe G){
 		Graphe H=new Graphe(G.nomG);
 		boolean amelio=true;
@@ -58,4 +78,5 @@ public class VDC extends Graphe{
 		}
 		return H;
 	}
+        **/
 }
