@@ -32,6 +32,13 @@ public class VDC extends Graphe{
                     for(Noeud n2 : V.liste_noeud){
                         Ville v2 = (Ville)n2;
                         if(v.id!=v2.id-1 && v.id!=v2.id+1 && v.id!=v2.id){ //modif thomas
+                            for(Arc a : v.liste_arc){
+                                if(a.dest.id==v2.id){
+                                    Route r=(Route)a;
+                                }
+                            }
+                            
+                        }
                     }
                 }
             }
