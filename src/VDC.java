@@ -31,12 +31,31 @@ public class VDC extends Graphe{
                     Ville v = (Ville)n;
                     for(Noeud n2 : V.liste_noeud){
                         Ville v2 = (Ville)n2;
+                        if(v.id!=v2.id-1 && v.id!=v2.id+1 && v.id!=v2.id){ //modif thomas
                     }
                 }
             }
             return H;
         }
         
+            	//fonction 2-opt ( G : Graphe, H : CycleHamiltonien )
+
+	//  am�lioration : bool�en := vrai
+	// Tant que am�lioration = vrai faire
+
+	//   am�lioration := faux;
+	// Pour tout sommet xi de H faire
+
+	//   Pour tout sommet xj de H, avec j diff�rent de i-1 et i+1 faire
+
+	//     Si distance(xi, xi+1) + distance(xj, xj+1) > distance(xi, xj) + distance(xi+1, xj+1) alors
+
+	//       Remplacer les ar�tes (xi, xi+1) et (xj, xj+1) par (xi, xj) et (xi+1, xj+1) dans H
+	//     am�lioration := vrai;
+
+	//retourner H
+            
+            
         /**
         public Graphe Nopt(Graphe G){
 		Graphe H=new Graphe(G.nomG);
