@@ -6,6 +6,7 @@ public class Arc {
 	 * @param args
 	 */
     //ici
+        Noeud essai;
 	Noeud source;
 	Noeud dest;
 	int id;
