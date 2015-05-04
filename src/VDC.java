@@ -17,7 +17,9 @@ public class VDC extends Graphe{
 	public void ajouterVille(Ville v){
 		super.AjouterNoeud(v);
                 for(Noeud n : this.liste_noeud){
+                    if(n.id!=v.id){
                         Route r=new Route(v,(Ville)n);
+                    }
 		}
 	}
         
