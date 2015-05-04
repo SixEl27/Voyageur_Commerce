@@ -6,19 +6,19 @@ public class Noeud {
 	/**
 	 * @param args
 	 */
-	int idn;
+	int id;
 	ArrayList<Arc> liste_arc;
 	
 	/**CONSTRUCTEURS*/
 	public Noeud(){
 		this.liste_arc=new ArrayList<Arc>();
-		this.idn=Graphe.idn;
-		Graphe.idn=Graphe.idn+1;
+		this.id=Graphe.compteurIdNoeud;
+		Graphe.compteurIdNoeud=Graphe.compteurIdNoeud+1;
 	}
 	
 	/**METHODES*/
 	public String toString(){
-		String str="Identifiant : "+this.idn;
+		String str="Identifiant : "+this.id;
 		return str;
 	}
 	

@@ -8,17 +8,17 @@ public class Route extends Arc{
 	double distance;
 	
 	/**CONSTRUCTEURS*/
-	public Route(Ville idn1, Ville idn2){
-		super(idn1,idn2);
-		this.distance=CalculDistanceEuc(idn1, idn2);
+	public Route(Ville source, Ville dest){
+		super(source,dest);
+		this.distance=calculDistanceEuc(source, dest);
 	}
 
 	/**METHODES*/
-	public double CalculDistanceEuc(Ville idn1, Ville idn2){
-		int x1=idn1.x;
-		int x2=idn2.x;
-		int y1=idn1.y;
-		int y2=idn2.y;
+	public double calculDistanceEuc(Ville source, Ville dest){
+		int x1=source.x;
+		int x2=dest.x;
+		int y1=source.y;
+		int y2=dest.y;
 		double d=Math.sqrt((x2-x1)^2+(y2-y1)^2);
 		return d;
 	}
