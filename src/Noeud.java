@@ -12,8 +12,8 @@ public class Noeud {
 	/**CONSTRUCTEURS*/
 	public Noeud(){
 		this.liste_arc=new ArrayList<Arc>();
-		this.idn=Graph.idn;
-		Graph.idn=Graph.idn+1;
+		this.idn=Graphe.idn;
+		Graphe.idn=Graphe.idn+1;
 	}
 	
 	/**METHODES*/

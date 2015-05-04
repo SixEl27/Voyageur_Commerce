@@ -1,12 +1,12 @@
 
-public class STP extends Graph{
+public class VDC extends Graphe{
 
 	/**
 	 * @param args
 	 */
 	
 	/**CONSTRUCTEURS*/
-	public STP(String nom){
+	public VDC(String nom){
 		super(nom);
 	}
 

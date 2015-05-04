@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 //TODO Vérifier hsitoire abstraction
-public class Graph {
+public class Graphe {
 
 	/**
 	 * @param args
@@ -12,12 +12,12 @@ public class Graph {
 	static int idn=0;
 	
 	/**CONSTRUCTEURS*/
-	public Graph(String nom){
+	public Graphe(String nom){
 		this.nomG=nom;
 		this.liste_noeud= new ArrayList<Noeud>();
 	}
-	public Graph(Graph G){
-		Graph H = new Graph(G.nomG+"_copie");
+	public Graphe(Graphe G){
+		Graphe H = new Graphe(G.nomG+"_copie");
 		for(Noeud n : G.liste_noeud){
 			H.liste_noeud.add(n);
 		}
