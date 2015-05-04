@@ -18,8 +18,15 @@ public class Noeud {
 	
 	/**METHODES*/
 	public String toString(){
-		String str="Identifiant : "+this.id;
-		return str;
+		StringBuffer sb= new StringBuffer();
+		sb.append("Identifiant : ");
+		sb.append(this.id);
+		sb.append("\n");
+		for(Arc a : liste_arc){
+			sb.append(a.toString());
+			sb.append('\n');
+		}
+		return sb.toString();
 	}
 	
 }
