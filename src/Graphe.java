@@ -6,18 +6,18 @@ public class Graphe {
 	/**
 	 * @param args
 	 */
-	String nomG;
+	String nom;
 	ArrayList<Noeud> liste_noeud;
 	static int compteurIdArc=0;
 	static int compteurIdNoeud=0;
 	
 	/**CONSTRUCTEURS*/
 	public Graphe(String nom){
-		this.nomG=nom;
+		this.nom=nom;
 		this.liste_noeud= new ArrayList<Noeud>();
 	}
 	public Graphe(Graphe G){
-		Graphe H = new Graphe(G.nomG+"_copie");
+		Graphe H = new Graphe(G.nom+"_copie");
 		for(Noeud n : G.liste_noeud){
 			H.liste_noeud.add(n);
 		}
@@ -41,5 +41,15 @@ public class Graphe {
 			}
 		}
 		return n;
+	}
+	
+	public String toString(){
+		StringBuffer sb = new StringBuffer();
+		//met le toString de chaque noeud dans la chaine
+		for(Noeud n : this.liste_noeud){
+			sb.append(n.toString());
+			sb.append("\n");
+		}
+		return sb.toString();
 	}
 }
