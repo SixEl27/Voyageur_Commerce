@@ -21,7 +21,7 @@ public class VDC extends Graphe{
 		}
 	}
         
-        
+        /**
         public ArrayList<Integer> Nopt2(VDC V){
             ArrayList<Integer> H= new ArrayList<Integer>();
             boolean amelio=true;
@@ -44,7 +44,7 @@ public class VDC extends Graphe{
             }
             return H;
         }
-        
+        */
             	//fonction 2-opt ( G : Graphe, H : CycleHamiltonien )
 
 	//  am�lioration : bool�en := vrai
