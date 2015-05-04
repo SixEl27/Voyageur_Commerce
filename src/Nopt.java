@@ -12,11 +12,11 @@ public class Nopt {
 			for(Noeud xi : H.liste_noeud){
 				for(Noeud xj : H.liste_noeud){
 					
-					if(xj.idn!=xi.idn-1 && xj.idn!=xi.idn+1 && xj.idn!=xi.idn){ //modif thomas
-						Noeud xip1= H.RecupererNoeud(xi.idn+1);
-						Noeud xim1= H.RecupererNoeud(xi.idn-1);
-						Noeud xjp1= H.RecupererNoeud(xj.idn+1);
-						Noeud xjm1= H.RecupererNoeud(xj.idn-1);
+					if(xj.id!=xi.id-1 && xj.id!=xi.id+1 && xj.id!=xi.id){ //modif thomas
+						Noeud xip1= H.RecupererNoeud(xi.id+1);
+						Noeud xim1= H.RecupererNoeud(xi.id-1);
+						Noeud xjp1= H.RecupererNoeud(xj.id+1);
+						Noeud xjm1= H.RecupererNoeud(xj.id-1);
 
 						Arc xixip1 = new Arc(xi,xip1);
 						Arc xjxjp1 = new Arc(xj,xjp1);

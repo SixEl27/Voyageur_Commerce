@@ -5,21 +5,21 @@ public class Arc {
 	/**
 	 * @param args
 	 */
-	Noeud idn1;
-	Noeud idn2;
-	int ida;
+	Noeud source;
+	Noeud dest;
+	int id;
 	
 	/**CONSTRUCTEURS*/
-	public Arc(Noeud idn1, Noeud idn2){
-		this.idn1=idn1;
-		this.idn2=idn2;
-		this.ida=Graphe.ida;
-		Graphe.ida=Graphe.ida+1;
+	public Arc(Noeud source, Noeud dest){
+		this.source=source;
+		this.dest=dest;
+		this.id=Graphe.compteurIdArc;
+		Graphe.compteurIdArc=Graphe.compteurIdArc+1;
 	}
 
 	/**METHODES*/
 	public String toString(){
-		String str="Identifiant : "+this.ida+"Ville 1 : "+this.idn1+"\nVille 2 : "+this.idn2;
+		String str="Identifiant : "+this.id+"Ville 1 : "+this.source+"\nVille 2 : "+this.dest;
 		return str;
 	}
 

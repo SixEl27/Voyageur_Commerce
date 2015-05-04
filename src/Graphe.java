@@ -8,8 +8,8 @@ public class Graphe {
 	 */
 	String nomG;
 	ArrayList<Noeud> liste_noeud;
-	static int ida=0;
-	static int idn=0;
+	static int compteurIdArc=0;
+	static int compteurIdNoeud=0;
 	
 	/**CONSTRUCTEURS*/
 	public Graphe(String nom){
@@ -35,7 +35,7 @@ public class Graphe {
 	public Noeud RecupererNoeud(int idno){
 		Noeud n=new Noeud();
 		for(Noeud n2 : this.liste_noeud){
-			if(n2.idn==idno){
+			if(n2.id==idno){
 				n=n2;
 			}
 		}
