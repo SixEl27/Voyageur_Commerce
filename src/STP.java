@@ -1,5 +1,5 @@
 
-public class STP extends Graph{
+public class STP extends Graphe{
 
 	/**
 	 * @param args

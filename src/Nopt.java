@@ -4,8 +4,8 @@ import java.util.ArrayList;
 public class Nopt {
 
 
-	public Graph Nopt(Graph G){
-		Graph H=new Graph(G.nomG);
+	public Graphe Nopt(Graphe G){
+		Graphe H=new Graphe(G.nomG);
 		boolean amelio=true;
 		while(amelio==true){
 			amelio=false;

@@ -13,8 +13,8 @@ public class Arc {
 	public Arc(Noeud idn1, Noeud idn2){
 		this.idn1=idn1;
 		this.idn2=idn2;
-		this.ida=Graph.ida;
-		Graph.ida=Graph.ida+1;
+		this.ida=Graphe.ida;
+		Graphe.ida=Graphe.ida+1;
 	}
 
 	/**METHODES*/
