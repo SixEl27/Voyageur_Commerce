@@ -30,21 +30,18 @@ public class VDC extends Graphe{
 			}
 		}
 	}
-	 public ArrayList<Integer> PlusProcheVoisin(VDC V, Ville v, ArrayList<Integer> H){
+	 public ArrayList<Ville> PlusProcheVoisin(Ville v, ArrayList<Ville> H){
             //TODO Remplacer la liste d'integer vide H par un obj de type chemin
             if(!H.contains(v.id)){
-                H.add(v.id);
+                H.add(v);
             }
             ArrayList<Route> Liste_R=(ArrayList<Route>)(ArrayList<?>)v.liste_arc;
             Collections.sort(Liste_R, Route.DISTANCE_COMPARATOR);
             int i=0;
             for(i=0; i<Liste_R.size();i++){
                 Route r=Liste_R.get(i);
-                if(!H.contains(r.dest.id)){
-                    PlusProcheVoisin(V, (Ville)r.dest, H);
-                }
-                else{
-                    i=i+1;
+                if(!H.contains(r.dest)){
+                    this.PlusProcheVoisin((Ville)r.dest, H);
                 }
             }
             return H;
