@@ -1,9 +1,3 @@
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
-
 public class VDC extends Graphe{
 
 	/**
@@ -16,34 +10,36 @@ public class VDC extends Graphe{
 	}
 
 	/**METHODES*/
-	public void ajouterVille(Ville v){
-		super.AjouterNoeud(v);
-                for(Noeud n : this.liste_noeud){
-                    if(n.id!=v.id){                     //Eviter qu'il y ai une route vers lui même
-                        Route r=new Route(v,(Ville)n);
-                    }
+	public void ajouterVille(Ville source){
+		//Pour la ville courante
+		super.AjouterNoeud(source);
+		for(Noeud destination : this.liste_noeud){
+			//pour ne pas avoir de ville ayant une route sur elle meme
+			if(source.id!=destination.id){
+				//Création des routes reliant la nouvelle ville a toutes les autres
+				//dans les deux sens
+				Route sens=new Route(source,(Ville)destination);
+				Route antisens=new Route((Ville)destination,source);
+				//TODO créer méthode d'ajout de route
+				source.liste_arc.add(sens);                 
+				((Ville)destination).liste_arc.add(antisens);
+			}
 		}
 	}
-        
-        public ArrayList<Integer> PlusProcheVoisin(VDC V, Ville v, ArrayList<Integer> H){
-            //TODO Remplacer la liste d'integer vide H par un obj de type chemin
-            if(!H.contains(v.id)){
-                H.add(v.id);
-            }
-            ArrayList<Route> Liste_R=(ArrayList<Route>)(ArrayList<?>)v.liste_arc;
-            Collections.sort(Liste_R, Route.DISTANCE_COMPARATOR);
-            int i=0;
-            for(i=0; i<Liste_R.size();i++){
-                Route r=Liste_R.get(i);
-                if(!H.contains(r.dest.id)){
-                    PlusProcheVoisin(V, (Ville)r.dest, H);
-                }
-                else{
-                    i=i+1;
-                }
-            }
-            return H;
-        }
+	
+	public String toString(){
+		StringBuffer sb = new StringBuffer();
+		sb.append("Graphe VdC : ");
+		sb.append(nom);
+		sb.append("\n");
+		//met le toString de chaque noeud dans la chaine
+		for(Noeud n : this.liste_noeud){
+			//on utilise le toString de Ville
+			sb.append(((Ville)n).toString());
+			sb.append("\n");
+		}
+		return sb.toString().trim();
+	}
         /**
         public ArrayList<Integer> Nopt2(VDC V){
             ArrayList<Integer> H= new ArrayList<Integer>();

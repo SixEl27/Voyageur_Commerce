@@ -6,12 +6,12 @@ public class Route extends Arc{
 	/**
 	 * @param args
 	 */
-	double distance;
+	double longueur;
 	
 	/**CONSTRUCTEURS*/
 	public Route(Ville source, Ville dest){
 		super(source,dest);
-		this.distance=calculDistanceEuc(source, dest);
+		this.longueur=calculDistanceEuc(source, dest);
 	}
 
 	/**METHODES*/
@@ -20,7 +20,7 @@ public class Route extends Arc{
 		int x2=dest.x;
 		int y1=source.y;
 		int y2=dest.y;
-		double d=Math.sqrt((x2-x1)^2+(y2-y1)^2);
+		double d=Math.sqrt( Math.pow((x2-x1),2) +  Math.pow((y2-y1),2) );
 		return d;
 	}
 	
@@ -46,10 +46,10 @@ public class Route extends Arc{
 		// TODO Auto-generated method stub
 		Route p=(Route) arg0;
 		Route q=(Route) arg1;
-		if(p.distance == q.distance){    
+		if(p.longueur == q.longueur){    
                     return 0;
 		}
-                else if (p.distance > q.distance)  return 1;
+                else if (p.longueur > q.longueur)  return 1;
 		else return -1;				
             }
  
@@ -64,7 +64,7 @@ public class Route extends Arc{
 		sb.append(", dest : ");
 		sb.append(this.dest.id);
 		sb.append(", longueur : ");
-		sb.append(this.distance);
+		sb.append(this.longueur);
 		return sb.toString();
 	}
 }

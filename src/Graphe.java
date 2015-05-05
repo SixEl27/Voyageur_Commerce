@@ -23,15 +23,11 @@ public class Graphe {
 	}
 
 	/**METHODES*/
-	public void AjouterNoeud(Noeud source){      //Pour le noeud courant
-		for(Noeud destination : this.liste_noeud){    //Parcours des autres noeuds dans le graphe
-			Arc sens=new Arc(source,destination);   //Arc source-destination
-                        Arc antisens=new Arc(destination,source);   //Arc destination-source
-			source.liste_arc.add(sens);                 
-			destination.liste_arc.add(antisens);
-		}
-		this.liste_noeud.add(source);
+	public void AjouterNoeud(Noeud n){
+		//TODO verifier la présence du noeud avant de l'ajouter dans la liste (hautement improbable avec le système d'ID)
+		this.liste_noeud.add(n);
 	}
+	
 	public Noeud RecupererNoeud(int idno){
 		Noeud n=new Noeud();
 		for(Noeud n2 : this.liste_noeud){
