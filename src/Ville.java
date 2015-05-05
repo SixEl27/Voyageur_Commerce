@@ -22,4 +22,19 @@ public class Ville extends Noeud{
 	}
 
 	/**METHODES*/
+	public String toString(){
+		StringBuffer sb= new StringBuffer();
+		sb.append("Ville : ");
+		sb.append(this.id);
+		sb.append(", x : ");
+		sb.append(this.x);
+		sb.append(", y : ");
+		sb.append(this.y);
+		sb.append("\n");
+		for(Arc a : liste_arc){
+			sb.append(a.toString());
+			sb.append('\n');
+		}
+		return sb.toString();
+	}
 }

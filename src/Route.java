@@ -22,4 +22,17 @@ public class Route extends Arc{
 		double d=Math.sqrt((x2-x1)^2+(y2-y1)^2);
 		return d;
 	}
+	
+	public String toString(){
+		StringBuffer sb=new StringBuffer();
+		sb.append("Route : ");
+		sb.append(this.id);
+		sb.append(", source : ");
+		sb.append(this.source.id);
+		sb.append(", dest : ");
+		sb.append(this.dest.id);
+		sb.append(", longueur : ");
+		sb.append(this.distance);
+		return sb.toString();
+	}
 }
