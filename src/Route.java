@@ -1,4 +1,5 @@
 import java.lang.Math;
+import java.util.Comparator;
 
 public class Route extends Arc{
 
@@ -23,6 +24,37 @@ public class Route extends Arc{
 		return d;
 	}
 	
+        public int getId() {
+            return this.id;
+	}
+ 
+        public void setId(int id) {
+            this.id = id;
+	}
+ 
+	public Ville getSource() {
+            return (Ville)this.source;
+	}
+ 
+	public Ville getDestination() {
+            return (Ville)this.dest;
+	}
+ 
+        public static final Comparator<Route> DISTANCE_COMPARATOR = new Comparator<Route>() {
+ 
+            public int compare(Route arg0, Route arg1) {
+		// TODO Auto-generated method stub
+		Route p=(Route) arg0;
+		Route q=(Route) arg1;
+		if(p.distance == q.distance){    
+                    return 0;
+		}
+                else if (p.distance > q.distance)  return 1;
+		else return -1;				
+            }
+ 
+	};
+
 	public String toString(){
 		StringBuffer sb=new StringBuffer();
 		sb.append("Route : ");
