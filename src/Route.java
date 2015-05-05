@@ -57,12 +57,12 @@ public class Route extends Arc{
 
 	public String toString(){
 		StringBuffer sb=new StringBuffer();
-		sb.append("Route : ");
+		sb.append("ID Route: ");
 		sb.append(this.id);
 		sb.append(", source : ");
-		sb.append(this.source.id);
+		sb.append(((Ville)this.source).nom);
 		sb.append(", dest : ");
-		sb.append(this.dest.id);
+		sb.append(((Ville)this.dest).nom);
 		sb.append(", longueur : ");
 		sb.append(this.longueur);
 		return sb.toString();

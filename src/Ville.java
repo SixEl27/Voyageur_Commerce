@@ -25,6 +25,8 @@ public class Ville extends Noeud{
 	public String toString(){
 		StringBuffer sb= new StringBuffer();
 		sb.append("Ville : ");
+		sb.append(this.nom);
+		sb.append(", ID : ");
 		sb.append(this.id);
 		sb.append(", x : ");
 		sb.append(this.x);
