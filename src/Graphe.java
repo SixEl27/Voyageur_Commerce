@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 //TODO Vérifier hsitoire abstraction
 public class Graphe {
 
@@ -45,11 +44,14 @@ public class Graphe {
 	
 	public String toString(){
 		StringBuffer sb = new StringBuffer();
+		sb.append("Graphe : ");
+		sb.append(nom);
+		sb.append("\n");
 		//met le toString de chaque noeud dans la chaine
 		for(Noeud n : this.liste_noeud){
 			sb.append(n.toString());
 			sb.append("\n");
 		}
-		return sb.toString();
+		return sb.toString().trim();
 	}
 }

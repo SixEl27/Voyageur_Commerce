@@ -19,7 +19,7 @@ public class Noeud {
 	/**METHODES*/
 	public String toString(){
 		StringBuffer sb= new StringBuffer();
-		sb.append("Identifiant : ");
+		sb.append("Noeud : ");
 		sb.append(this.id);
 		sb.append("\n");
 		for(Arc a : liste_arc){

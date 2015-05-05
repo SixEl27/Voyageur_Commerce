@@ -21,11 +21,11 @@ public class Arc {
 	/**METHODES*/
 	public String toString(){
 		StringBuffer sb=new StringBuffer();
-		sb.append("Identifiant : ");
+		sb.append("Arc : ");
 		sb.append(this.id);
-		sb.append("source : ");
+		sb.append(",source : ");
 		sb.append(this.source.id);
-		sb.append("dest : ");
+		sb.append(",dest : ");
 		sb.append(this.dest.id);
 		return sb.toString();
 	}
