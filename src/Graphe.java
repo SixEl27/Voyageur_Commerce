@@ -26,13 +26,13 @@ public class Graphe {
 	}
 
 	/** METHODES */
-	public void AjouterNoeud(Noeud n) {
+	public void ajouterNoeud(Noeud n) {
 		// TODO verifier la présence du noeud avant de l'ajouter dans la liste
 		// (hautement improbable avec le système d'ID)
 		this.liste_noeud.add(n);
 	}
 
-	public Noeud RecupererNoeud(int id) {
+	public Noeud recupererNoeud(int id) {
 		for (Noeud n : this.liste_noeud) {
 			if (n.id == id) {
 				return n;

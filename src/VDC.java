@@ -29,7 +29,7 @@ public class VDC extends Graphe{
 	/**METHODES*/
 	public void ajouterVille(Ville source){
 		//Pour la ville courante
-		super.AjouterNoeud(source);
+		super.ajouterNoeud(source);
 		for(Noeud destination : this.liste_noeud){
 			//pour ne pas avoir de ville ayant une route sur elle meme
 			if(source.id!=destination.id){
@@ -43,7 +43,7 @@ public class VDC extends Graphe{
 			}
 		}
 	}
-	 public ArrayList<Ville> PlusProcheVoisin(Ville v, ArrayList<Ville> H){
+	 public ArrayList<Ville> plusProcheVoisin(Ville v, ArrayList<Ville> H){
             //TODO Remplacer la liste d'integer vide H par un obj de type chemin
             if(!H.contains(v.id)){
                 H.add(v);
@@ -54,7 +54,7 @@ public class VDC extends Graphe{
             for(i=0; i<Liste_R.size();i++){
                 Route r=Liste_R.get(i);
                 if(!H.contains(r.dest)){
-                    this.PlusProcheVoisin((Ville)r.dest, H);
+                    this.plusProcheVoisin((Ville)r.dest, H);
                 }
             }
             return H;
