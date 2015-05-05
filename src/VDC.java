@@ -1,6 +1,7 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Hashtable;
 
 public class VDC extends Graphe{
 
@@ -47,20 +48,93 @@ public class VDC extends Graphe{
             return H;
         }
         
-        public ArrayList<Integer> insertionVoisinLePlusEloigne(VDC V){
-            ArrayList<Integer> H= new ArrayList<Integer>();
+        public ArrayList<Ville> insertionVoisinLePlusEloigne(){
+            ArrayList<Ville> H= new ArrayList<Ville>();
             ArrayList<Route> Liste_R_tot= new ArrayList<Route>();
-            ArrayList<Ville> Liste_V=(ArrayList<Ville>)(ArrayList<?>)V.liste_noeud; //Toute les villes du graphe
-            for (Ville v : Liste_V){
+            ArrayList<Ville> liste_v=(ArrayList<Ville>)(ArrayList<?>)this.liste_noeud; //Toute les villes du graphe
+            for (Ville v : liste_v){
                 ArrayList<Route> Liste_R=(ArrayList<Route>)(ArrayList<?>)v.liste_arc;
                 Liste_R_tot.addAll(Liste_R);
             }
             Collections.sort(Liste_R_tot, Route.DISTANCE_COMPARATOR);
-            Route r=Liste_R_tot.get(Liste_R_tot.size());
-            
+            Route r=Liste_R_tot.get(Liste_R_tot.size()-1);
+            H.add((Ville)r.source);
+            H.add((Ville)r.dest);
+            liste_v.remove((Ville)r.source);
+            liste_v.remove((Ville)r.dest);
+            r=null;
+            while(H.size()!=this.liste_noeud.size()){               //Tant que le circuit n’est pas complet-1
+                Route route_max=null;
+                for(Ville v_inconnu : liste_v){                     // Pour toutes les villes à visiter
+                    Hashtable<Ville,Route> ht = new Hashtable<Ville,Route>();   //hashtable clé=ville_connu, valeur=route distance minimal     
+                    for(Ville v_connu : H){                         //Pour toutes les villes déjà dans le circuit
+                        for(Arc a : v_connu.liste_arc){             //Pour chaque route dont la ville connu est source
+                            if(a.dest.id==v_inconnu.id){            //Si la destination est une ville inconnu
+                                if(ht.get(v_connu)==null){          //Si la table e hashage est vide
+                                    ht.put(v_connu, (Route)a);      //Ajout (premier passage)
+                                }
+                                else{                               //Sinon
+                                    if(ht.get(v_connu).longueur>((Route)a).longueur){   //Si la longueur de la nouvelle route est inférieur à celle pré-enregistrée
+                                         ht.put(v_connu, (Route)a);     //remplacement de l'ancienne route par la nouvelle
+                                    }
+                                }
+                            }
+                        }
+                        
+                    }
+                    for( Ville v : ht.keySet()){
+                        if(route_max==null){
+                            route_max=ht.get(v);
+                        }
+                        else{
+                            if(ht.get(v).longueur>route_max.longueur){
+                                route_max=ht.get(v);
+                            }
+                        }
+                    }
+                        
+                }
+                int index=H.indexOf(route_max.source);
+                H.add(index, (Ville)route_max.dest);
+                //TODO vérifier que l'insertion n'ecrase pas ds la liste H
+            }
             return H;
         };
         
+         /**
+            Initialisation du circuit avec les 2 villes les plus éloignées
+            Suppression de ces villes des étapes à visiter
+            Tant que le circuit n’est pas complet-1
+                Pour toutes les villes à visiter
+                    Pour toutes les villes déjà dans le circuit
+                        Calcul de la ville dont la distance est minimale
+                    Calcul de la ville dont la distance est maximum des distances minimales
+                Insertion de la ville trouvée juste après la ville dont elle est la plus proche
+                Suppression de la ville des étapes à visiter
+            Fin tant que
+            Circuit + retour 
+        */
+                /**
+                for(Ville v : Liste_V){
+                    ArrayList<Route> Liste_R_max= new ArrayList<Route>();
+                    ArrayList<Ville> Liste_V_max= new ArrayList<Ville>();
+                    for(Ville v2 : H){
+                        ArrayList<Route> Liste_R_min= new ArrayList<Route>();
+                        ArrayList<Ville> Liste_V_min= new ArrayList<Ville>();
+                        for(Arc a : v.liste_arc){
+                            if(a.dest.id==v2.id){
+                                Liste_R_min.add((Route)a);
+                            }
+                        }
+                        Collections.sort(Liste_R_min, Route.DISTANCE_COMPARATOR);
+                        Liste_V_max.add((Ville)Liste_R_min.get(0).source);
+                    }
+                    Collections.sort(Liste_R_max, Route.DISTANCE_COMPARATOR);
+                    r=Liste_R_max.get(Liste_R_max.size());
+                }
+                
+            }*/
+
 	public String toString(){
 		StringBuffer sb = new StringBuffer();
 		sb.append("Graphe VdC : ");
