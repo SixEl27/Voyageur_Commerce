@@ -1,3 +1,7 @@
+
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class VDC extends Graphe{
 
 	/**
@@ -26,7 +30,40 @@ public class VDC extends Graphe{
 			}
 		}
 	}
-	
+	 public ArrayList<Integer> PlusProcheVoisin(VDC V, Ville v, ArrayList<Integer> H){
+            //TODO Remplacer la liste d'integer vide H par un obj de type chemin
+            if(!H.contains(v.id)){
+                H.add(v.id);
+            }
+            ArrayList<Route> Liste_R=(ArrayList<Route>)(ArrayList<?>)v.liste_arc;
+            Collections.sort(Liste_R, Route.DISTANCE_COMPARATOR);
+            int i=0;
+            for(i=0; i<Liste_R.size();i++){
+                Route r=Liste_R.get(i);
+                if(!H.contains(r.dest.id)){
+                    PlusProcheVoisin(V, (Ville)r.dest, H);
+                }
+                else{
+                    i=i+1;
+                }
+            }
+            return H;
+        }
+        
+        public ArrayList<Integer> insertionVoisinLePlusEloigne(VDC V){
+            ArrayList<Integer> H= new ArrayList<Integer>();
+            ArrayList<Route> Liste_R_tot= new ArrayList<Route>();
+            ArrayList<Ville> Liste_V=(ArrayList<Ville>)(ArrayList<?>)V.liste_noeud; //Toute les villes du graphe
+            for (Ville v : Liste_V){
+                ArrayList<Route> Liste_R=(ArrayList<Route>)(ArrayList<?>)v.liste_arc;
+                Liste_R_tot.addAll(Liste_R);
+            }
+            Collections.sort(Liste_R_tot, Route.DISTANCE_COMPARATOR);
+            Route r=Liste_R_tot.get(Liste_R_tot.size());
+            
+            return H;
+        };
+        
 	public String toString(){
 		StringBuffer sb = new StringBuffer();
 		sb.append("Graphe VdC : ");
