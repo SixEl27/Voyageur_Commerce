@@ -13,6 +13,18 @@ public class VDC extends Graphe{
 	public VDC(String nom){
 		super(nom);
 	}
+	
+	public VDC(int nb_noeud,int limite){
+		//Aleatoire
+		super("VDC aleatoire - "+nb_noeud+"noeuds");
+		for (int i=0;i<nb_noeud;i++){
+			this.ajouterVille(
+					new Ville(
+					GenerationAleatoire.genererInt(limite),
+					GenerationAleatoire.genererInt(limite),
+					GenerationAleatoire.genererString("aeuioywzvdg", 6)));
+		}
+	}
 
 	/**METHODES*/
 	public void ajouterVille(Ville source){
