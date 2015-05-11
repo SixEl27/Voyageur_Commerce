@@ -2,6 +2,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
+import java.util.Random;
 
 public class VDC extends Graphe{
 
@@ -60,6 +61,87 @@ public class VDC extends Graphe{
             return H;
         }
         
+        
+        public ArrayList<Ville> two_opt(){
+           // ArrayList<Ville> H= new ArrayList(this.liste_noeud);
+            ArrayList<Ville> H= new ArrayList();
+            for (int j = 0; j < this.liste_noeud.size(); j++) {
+                H.add((Ville)this.liste_noeud.get(j));
+            }
+            
+            //H.add((Ville)this.liste_noeud.get(0));
+            
+            boolean b=true;
+            if(H.isEmpty()){
+                b=false;
+            }
+            while(b){
+                b=false;
+                for (int i = 0; i < H.size()-1; i++) {
+                    for (int j = 0; j < H.size()-1; j++) {
+                        if(j!=i && j!=j+1 && j!=j-1){
+                            Ville vi=H.get(i);
+                            Ville vj=H.get(j);
+
+                            Ville vi1=null;
+                            Ville vj1=null;
+                            if(i==H.size()-1){
+                                vi1=H.get(0);
+                            }
+                            else{
+                                vi1=H.get(i+1);
+                            }
+                            if(j==H.size()-1){
+                                vj1=H.get(0);
+                            }
+                            else{
+                                vj1=H.get(j+1);
+                            }
+                            double dii1=0;
+                            double djj1=0;
+                            double dij=0;
+                            double di1j1=0;
+                            for(Arc a :vi.liste_arc){
+                                    Route r = (Route)a;
+                                    if((r.source.id==vj.id && r.dest.id==vi.id) ||(r.dest.id==vj.id && r.source.id==vi.id)){
+                                            dij=r.longueur;
+                                    }
+
+                                    else if((r.source.id==vi.id && r.dest.id==vi1.id) ||(r.dest.id==vi.id && r.source.id==vi1.id)){
+                                            dii1=r.longueur;
+                                    }	
+                            }
+                            for(Arc a :vj1.liste_arc){
+                                    Route r1=(Route)a;
+                                    if((r1.source.id==vj1.id && r1.dest.id==vi1.id) ||(r1.dest.id==vj1.id && r1.source.id==vi1.id)){
+                                            di1j1=r1.longueur;
+                                    }
+
+                                    else if((r1.source.id==vj1.id && r1.dest.id==vj.id) ||(r1.dest.id==vj1.id && r1.source.id==vj.id)){
+                                            djj1=r1.longueur;
+                                    }
+                            }
+                            if(dii1+djj1>dij+di1j1){
+                                    // Remplacer les arêtes (xi, xi+1) et (xj, xj+1) par (xi, xj) et (xi+1, xj+1) dans H
+                                    if(i==H.size()-1){
+                                        H.set(0,vj);
+                                    }
+                                    else{
+                                        H.set(i+1,vj);
+                                    }	
+                                    H.set(j, vi1);
+
+                                    b=true;
+                            }
+                        }
+                    }
+                }
+            }
+            System.out.println(H.size()+" "+this.liste_noeud.size()+"    v");
+            return H;	
+	}
+         
+         
         public ArrayList<Ville> insertionVoisinLePlusEloigne(){
             ArrayList<Ville> H= new ArrayList<Ville>();
             ArrayList<Route> Liste_R_tot= new ArrayList<Route>();
@@ -75,78 +157,51 @@ public class VDC extends Graphe{
             liste_v.remove((Ville)r.source);
             liste_v.remove((Ville)r.dest);
             r=null;
-            while(H.size()!=this.liste_noeud.size()){               //Tant que le circuit n’est pas complet-1
+            while(!this.liste_noeud.isEmpty()){               //Tant que le circuit n’est pas complet-1
                 Route route_max=null;
-                for(Ville v_inconnu : liste_v){                     // Pour toutes les villes à visiter
-                    Hashtable<Ville,Route> ht = new Hashtable<Ville,Route>();   //hashtable clé=ville_connu, valeur=route distance minimal     
-                    for(Ville v_connu : H){                         //Pour toutes les villes déjà dans le circuit
+                Hashtable<Ville,Route> ht = new Hashtable<Ville,Route>();   //hashtable clé=ville_connu, valeur=route distance minimal     
+                //System.out.println(H.size());
+                //System.out.println(String.valueOf(this.liste_noeud.size())+"ici");  //reduit petit a petit sans savoir pk
+                for(Ville v_connu : H){                         //Pour toutes les villes déjà dans le circuit
+                    for(Ville v_inconnu : liste_v){                     // Pour toutes les villes à visiter
                         for(Arc a : v_connu.liste_arc){             //Pour chaque route dont la ville connu est source
                             if(a.dest.id==v_inconnu.id){            //Si la destination est une ville inconnu
                                 if(ht.get(v_connu)==null){          //Si la table e hashage est vide
                                     ht.put(v_connu, (Route)a);      //Ajout (premier passage)
+                                    //System.out.println(v_connu.id);
                                 }
                                 else{                               //Sinon
                                     if(ht.get(v_connu).longueur>((Route)a).longueur){   //Si la longueur de la nouvelle route est inférieur à celle pré-enregistrée
-                                         ht.put(v_connu, (Route)a);     //remplacement de l'ancienne route par la nouvelle
+                                        ht.put(v_connu, (Route)a);     //remplacement de l'ancienne route par la nouvelle
+                                        //System.out.println(v_connu.id);
                                     }
                                 }
                             }
                         }
                         
                     }
-                    for( Ville v : ht.keySet()){
+                    for( Arc a : ht.values()){
                         if(route_max==null){
-                            route_max=ht.get(v);
+                            route_max=(Route)a;
                         }
                         else{
-                            if(ht.get(v).longueur>route_max.longueur){
-                                route_max=ht.get(v);
+                            if(((Route)a).longueur>route_max.longueur){
+                                route_max=(Route)a;
                             }
                         }
                     }
-                        
+                    
                 }
-                int index=H.indexOf(route_max.source);
-                H.add(index, (Ville)route_max.dest);
+                if(route_max!=null){
+                    liste_v.remove((Ville)route_max.dest); 
+                    int index=H.indexOf(route_max.source);
+                    H.add(index, (Ville)route_max.dest);
+                }
                 //TODO vérifier que l'insertion n'ecrase pas ds la liste H
             }
             return H;
         };
         
-         /**
-            Initialisation du circuit avec les 2 villes les plus éloignées
-            Suppression de ces villes des étapes à visiter
-            Tant que le circuit n’est pas complet-1
-                Pour toutes les villes à visiter
-                    Pour toutes les villes déjà dans le circuit
-                        Calcul de la ville dont la distance est minimale
-                    Calcul de la ville dont la distance est maximum des distances minimales
-                Insertion de la ville trouvée juste après la ville dont elle est la plus proche
-                Suppression de la ville des étapes à visiter
-            Fin tant que
-            Circuit + retour 
-        */
-                /**
-                for(Ville v : Liste_V){
-                    ArrayList<Route> Liste_R_max= new ArrayList<Route>();
-                    ArrayList<Ville> Liste_V_max= new ArrayList<Ville>();
-                    for(Ville v2 : H){
-                        ArrayList<Route> Liste_R_min= new ArrayList<Route>();
-                        ArrayList<Ville> Liste_V_min= new ArrayList<Ville>();
-                        for(Arc a : v.liste_arc){
-                            if(a.dest.id==v2.id){
-                                Liste_R_min.add((Route)a);
-                            }
-                        }
-                        Collections.sort(Liste_R_min, Route.DISTANCE_COMPARATOR);
-                        Liste_V_max.add((Ville)Liste_R_min.get(0).source);
-                    }
-                    Collections.sort(Liste_R_max, Route.DISTANCE_COMPARATOR);
-                    r=Liste_R_max.get(Liste_R_max.size());
-                }
-                
-            }*/
-
 	public String toString(){
 		StringBuffer sb = new StringBuffer();
 		sb.append("Graphe VdC : ");
@@ -160,88 +215,5 @@ public class VDC extends Graphe{
 		}
 		return sb.toString().trim();
 	}
-        /**
-        public ArrayList<Integer> Nopt2(VDC V){
-            ArrayList<Integer> H= new ArrayList<Integer>();
-            boolean amelio=true;
-            while(amelio==true){
-		amelio=false;
-                for(Noeud n : V.liste_noeud){
-                    Ville v = (Ville)n;
-                    for(Noeud n2 : V.liste_noeud){
-                        Ville v2 = (Ville)n2;
-                        if(v.id!=v2.id-1 && v.id!=v2.id+1 && v.id!=v2.id){ //modif thomas
-                            for(Arc a : v.liste_arc){
-                                if(a.dest.id==v2.id){
-                                    Route r=(Route)a;
-                                }
-                            }
-                            
-                        }
-                    }
-                }
-            }
-            return H;
-        }
-        */
-            	//fonction 2-opt ( G : Graphe, H : CycleHamiltonien )
 
-	//  am�lioration : bool�en := vrai
-	// Tant que am�lioration = vrai faire
-
-	//   am�lioration := faux;
-	// Pour tout sommet xi de H faire
-
-	//   Pour tout sommet xj de H, avec j diff�rent de i-1 et i+1 faire
-
-	//     Si distance(xi, xi+1) + distance(xj, xj+1) > distance(xi, xj) + distance(xi+1, xj+1) alors
-
-	//       Remplacer les ar�tes (xi, xi+1) et (xj, xj+1) par (xi, xj) et (xi+1, xj+1) dans H
-	//     am�lioration := vrai;
-
-	//retourner H
-            
-            
-        /**
-        public Graphe Nopt(Graphe G){
-		Graphe H=new Graphe(G.nomG);
-		boolean amelio=true;
-		while(amelio==true){
-			amelio=false;
-			for(Noeud xi : H.liste_noeud){
-				for(Noeud xj : H.liste_noeud){
-					
-					if(xj.id!=xi.id-1 && xj.id!=xi.id+1 && xj.id!=xi.id){ //modif thomas
-						Noeud xip1= H.RecupererNoeud(xi.id+1);
-						Noeud xim1= H.RecupererNoeud(xi.id-1);
-						Noeud xjp1= H.RecupererNoeud(xj.id+1);
-						Noeud xjm1= H.RecupererNoeud(xj.id-1);
-
-						Arc xixip1 = new Arc(xi,xip1);
-						Arc xjxjp1 = new Arc(xj,xjp1);
-						Arc xixj = new Arc(xi,xj);
-						Arc xip1xjp1 = new Arc(xip1,xjp1);
-
-						Route r_xixip1=(Route)xixip1;
-						Route r_xjxjp1=(Route)xjxjp1;
-						Route r_xixj=(Route)xixj;
-						Route r_xip1xjp1=(Route)xip1xjp1;
-
-						if((r_xixip1.distance+r_xjxjp1.distance)>(r_xixj.distance+r_xip1xjp1.distance)){
-							//Verifier que
-							Route sauv=r_xixip1;
-							Route sauv2=r_xjxjp1;
-							r_xixip1=r_xixj;
-							r_xjxjp1=r_xip1xjp1;
-							r_xixj=sauv;
-							r_xip1xjp1=sauv2;
-							amelio=true;
-						}
-					}
-				}
-			}
-		}
-		return H;
-	}
-        **/
 }
