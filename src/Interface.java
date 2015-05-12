@@ -1,8 +1,3 @@
-
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,7 +6,7 @@ import java.awt.event.WindowListener;
 
 /**
  *
- * @author Alex
+ * @author Alexis
  */
 public class Interface extends javax.swing.JFrame {
 
@@ -19,15 +14,7 @@ public class Interface extends javax.swing.JFrame {
      * Creates new form Interface2
      */
     public Interface() {
-        super("Ma fenetre");
-	WindowListener l = new WindowAdapter() {
-	public void windowClosing(WindowEvent e){
-		System.exit(0);
-            }
-        };
-        addWindowListener(l);
         initComponents();
-        setVisible(true);
     }
 
     /**
@@ -39,184 +26,192 @@ public class Interface extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        JPanelCarte = new javax.swing.JPanel();
-        BSave = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        nomVille = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        BReset = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jComboBox_choixAlgo = new javax.swing.JComboBox();
-        BExecuter = new javax.swing.JButton();
-        jPanel_TableVille = new javax.swing.JPanel();
-        coordonneY = new javax.swing.JLabel();
-        coordonneX = new javax.swing.JLabel();
+        pCarte = new javax.swing.JPanel();
+        pDessin = new javax.swing.JPanel();
+        pModifVille = new javax.swing.JPanel();
+        lTitreCoordonnees = new javax.swing.JLabel();
+        lCoordonees = new javax.swing.JLabel();
+        lTitreVille = new javax.swing.JLabel();
+        tfVille = new javax.swing.JTextField();
+        pAlgo = new javax.swing.JPanel();
+        cbChoixAlgo = new javax.swing.JComboBox();
+        bExecuter = new javax.swing.JButton();
+        pTabVille = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mFichier = new javax.swing.JMenu();
+        miGrapheAleatoire = new javax.swing.JMenuItem();
+        miQuitter = new javax.swing.JMenuItem();
+        mEditer = new javax.swing.JMenu();
+        miReinitialiser = new javax.swing.JMenuItem();
+
+        jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFocusTraversalPolicyProvider(true);
+        setMinimumSize(new java.awt.Dimension(600, 600));
+        setPreferredSize(new java.awt.Dimension(800, 700));
 
-        JPanelCarte.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        pCarte.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout JPanelCarteLayout = new javax.swing.GroupLayout(JPanelCarte);
-        JPanelCarte.setLayout(JPanelCarteLayout);
-        JPanelCarteLayout.setHorizontalGroup(
-            JPanelCarteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 539, Short.MAX_VALUE)
+        pDessin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout pDessinLayout = new javax.swing.GroupLayout(pDessin);
+        pDessin.setLayout(pDessinLayout);
+        pDessinLayout.setHorizontalGroup(
+            pDessinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 678, Short.MAX_VALUE)
         );
-        JPanelCarteLayout.setVerticalGroup(
-            JPanelCarteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 349, Short.MAX_VALUE)
+        pDessinLayout.setVerticalGroup(
+            pDessinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 315, Short.MAX_VALUE)
         );
 
-        BSave.setText("Save");
+        pCarte.add(pDessin, java.awt.BorderLayout.CENTER);
 
-        jLabel1.setText("Nom de Ville :");
+        pModifVille.setPreferredSize(new java.awt.Dimension(682, 40));
 
-        nomVille.setText("jTextField1");
-        nomVille.addActionListener(new java.awt.event.ActionListener() {
+        lTitreCoordonnees.setText("Coordonnées :");
+
+        lTitreVille.setText("Ville :");
+
+        tfVille.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nomVilleActionPerformed(evt);
+                tfVilleActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("X :");
+        javax.swing.GroupLayout pModifVilleLayout = new javax.swing.GroupLayout(pModifVille);
+        pModifVille.setLayout(pModifVilleLayout);
+        pModifVilleLayout.setHorizontalGroup(
+            pModifVilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pModifVilleLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lTitreCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lCoordonees, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lTitreVille, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfVille, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(313, Short.MAX_VALUE))
+        );
+        pModifVilleLayout.setVerticalGroup(
+            pModifVilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pModifVilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(lTitreCoordonnees, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lCoordonees, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lTitreVille, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfVille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
-        jLabel3.setText("Y :");
+        pCarte.add(pModifVille, java.awt.BorderLayout.NORTH);
 
-        BReset.setText("Reset");
-        BReset.addActionListener(new java.awt.event.ActionListener() {
+        pAlgo.setPreferredSize(new java.awt.Dimension(682, 40));
+
+        cbChoixAlgo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbChoixAlgo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BResetActionPerformed(evt);
+                cbChoixAlgoActionPerformed(evt);
             }
         });
 
-        jLabel4.setText("Algorithme :");
-
-        jComboBox_choixAlgo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox_choixAlgo.addActionListener(new java.awt.event.ActionListener() {
+        bExecuter.setText("Exécuter");
+        bExecuter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox_choixAlgoActionPerformed(evt);
+                bExecuterActionPerformed(evt);
             }
         });
 
-        BExecuter.setText("Exécuter");
-        BExecuter.addActionListener(new java.awt.event.ActionListener() {
+        javax.swing.GroupLayout pAlgoLayout = new javax.swing.GroupLayout(pAlgo);
+        pAlgo.setLayout(pAlgoLayout);
+        pAlgoLayout.setHorizontalGroup(
+            pAlgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAlgoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cbChoixAlgo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bExecuter, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(375, Short.MAX_VALUE))
+        );
+        pAlgoLayout.setVerticalGroup(
+            pAlgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAlgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(bExecuter, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbChoixAlgo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        pCarte.add(pAlgo, java.awt.BorderLayout.SOUTH);
+
+        getContentPane().add(pCarte, java.awt.BorderLayout.CENTER);
+
+        pTabVille.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        pTabVille.setPreferredSize(new java.awt.Dimension(100, 399));
+
+        javax.swing.GroupLayout pTabVilleLayout = new javax.swing.GroupLayout(pTabVille);
+        pTabVille.setLayout(pTabVilleLayout);
+        pTabVilleLayout.setHorizontalGroup(
+            pTabVilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 98, Short.MAX_VALUE)
+        );
+        pTabVilleLayout.setVerticalGroup(
+            pTabVilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 397, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(pTabVille, java.awt.BorderLayout.EAST);
+
+        mFichier.setText("Fichier");
+
+        miGrapheAleatoire.setText("Créer un graphe aléatoire");
+        mFichier.add(miGrapheAleatoire);
+
+        miQuitter.setText("Quitter");
+        miQuitter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BExecuterActionPerformed(evt);
+                miQuitterActionPerformed(evt);
             }
         });
+        mFichier.add(miQuitter);
 
-        jPanel_TableVille.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jPanel_TableVille.setToolTipText("");
+        jMenuBar1.add(mFichier);
 
-        javax.swing.GroupLayout jPanel_TableVilleLayout = new javax.swing.GroupLayout(jPanel_TableVille);
-        jPanel_TableVille.setLayout(jPanel_TableVilleLayout);
-        jPanel_TableVilleLayout.setHorizontalGroup(
-            jPanel_TableVilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 104, Short.MAX_VALUE)
-        );
-        jPanel_TableVilleLayout.setVerticalGroup(
-            jPanel_TableVilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 396, Short.MAX_VALUE)
-        );
+        mEditer.setText("Editer");
 
-        coordonneY.setText("jLabel5");
+        miReinitialiser.setText("Re-initialiser");
+        miReinitialiser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miReinitialiserActionPerformed(evt);
+            }
+        });
+        mEditer.add(miReinitialiser);
 
-        coordonneX.setText("jLabel5");
+        jMenuBar1.add(mEditer);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(coordonneY, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(281, 281, 281)
-                                .addComponent(BSave)
-                                .addGap(18, 18, 18)
-                                .addComponent(BReset))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(coordonneX, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(213, 213, 213)
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(nomVille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox_choixAlgo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(185, 185, 185)
-                        .addComponent(BExecuter))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(JPanelCarte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel_TableVille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(coordonneX, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(nomVille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3)
-                                .addComponent(coordonneY, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(BSave)
-                                    .addComponent(BReset))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(JPanelCarte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel_TableVille, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBox_choixAlgo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BExecuter))
-                .addContainerGap())
-        );
+        setJMenuBar(jMenuBar1);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox_choixAlgoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_choixAlgoActionPerformed
+    private void cbChoixAlgoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbChoixAlgoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox_choixAlgoActionPerformed
+    }//GEN-LAST:event_cbChoixAlgoActionPerformed
 
-    private void BExecuterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BExecuterActionPerformed
+    private void bExecuterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExecuterActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BExecuterActionPerformed
+    }//GEN-LAST:event_bExecuterActionPerformed
 
-    private void nomVilleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomVilleActionPerformed
+    private void tfVilleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfVilleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nomVilleActionPerformed
+    }//GEN-LAST:event_tfVilleActionPerformed
 
-    private void BResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BResetActionPerformed
+    private void miQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miQuitterActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_BResetActionPerformed
+    }//GEN-LAST:event_miQuitterActionPerformed
+
+    private void miReinitialiserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miReinitialiserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miReinitialiserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -255,18 +250,23 @@ public class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BExecuter;
-    private javax.swing.JButton BReset;
-    private javax.swing.JButton BSave;
-    private javax.swing.JPanel JPanelCarte;
-    private javax.swing.JLabel coordonneX;
-    private javax.swing.JLabel coordonneY;
-    private javax.swing.JComboBox jComboBox_choixAlgo;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton bExecuter;
+    private javax.swing.JComboBox cbChoixAlgo;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel_TableVille;
-    private javax.swing.JTextField nomVille;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel lCoordonees;
+    private javax.swing.JLabel lTitreCoordonnees;
+    private javax.swing.JLabel lTitreVille;
+    private javax.swing.JMenu mEditer;
+    private javax.swing.JMenu mFichier;
+    private javax.swing.JMenuItem miGrapheAleatoire;
+    private javax.swing.JMenuItem miQuitter;
+    private javax.swing.JMenuItem miReinitialiser;
+    private javax.swing.JPanel pAlgo;
+    private javax.swing.JPanel pCarte;
+    private javax.swing.JPanel pDessin;
+    private javax.swing.JPanel pModifVille;
+    private javax.swing.JPanel pTabVille;
+    private javax.swing.JTextField tfVille;
     // End of variables declaration//GEN-END:variables
 }
