@@ -11,26 +11,46 @@ import javax.swing.JComponent;
 
 public class Dessin extends JComponent{
 
-	int X,Y;
-	ArrayList<Shape> listeForme;
+	int x,y;
+	double tailleVille=10;
+	//ArrayList<Shape> BufferForme;
+	ArrayList<Shape> listeForme =  new ArrayList<Shape>();;
 	Shape formeEnCours;
 	
 	public Dessin(){
 		super();
 		formeEnCours = null;
-		listeForme = new ArrayList<Shape>();
+		//BufferForme = new ArrayList<Shape>();
+		//listeForme = new ArrayList<Shape>();
 		
 		addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				X = e.getX();
-				Y = e.getY();
-				double tailleVille=10;
-				formeEnCours = new Ellipse2D.Double(X-(tailleVille/2.0),Y-(tailleVille/2.0),tailleVille,tailleVille);
+				x = e.getX();
+				y = e.getY();
+				formeEnCours = new Ellipse2D.Double(x-(tailleVille/2.0),y-(tailleVille/2.0),tailleVille,tailleVille);
+				//BufferForme.add(formeEnCours);
 				repaint();
 			}
 		});
+		
 	}
 	
+	public int getx() {
+		return x;
+	}
+
+	public int gety() {
+		return y;
+	}
+
+	public ArrayList<Shape> getListeForme() {
+		return listeForme;
+	}
+
+	public Shape getFormeEnCours() {
+		return formeEnCours;
+	}
+
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
@@ -40,6 +60,13 @@ public class Dessin extends JComponent{
 		g2.setColor(Color.BLUE);
 		for(int i=0;i<listeForme.size();i++)
 			g2.fill(listeForme.get(i));
+	}
+	
+	public void Refresh(VDC VDC1){
+		for(Noeud n : VDC1.liste_noeud){
+			Ville v = (Ville)n;
+			listeForme.add(new Ellipse2D.Double(v.x-(tailleVille/2.0),v.y-(tailleVille/2.0),tailleVille,tailleVille));
+		}
 	}
 }
 

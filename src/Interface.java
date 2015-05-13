@@ -1,3 +1,5 @@
+import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -18,6 +20,7 @@ public class Interface extends javax.swing.JFrame {
 	 */
 	public Interface() {
 		initComponents();
+		pDessin.Refresh(VDC1);
 	}
 
 	/**
@@ -31,7 +34,7 @@ public class Interface extends javax.swing.JFrame {
 	private void initComponents() {
 
 		pCarte = new javax.swing.JPanel();
-		Dessin pDessin = new Dessin();
+		pDessin = new Dessin();
 		pModifVille = new javax.swing.JPanel();
 		lTitreCoordonnees = new javax.swing.JLabel();
 		lCoordonees = new javax.swing.JLabel();
@@ -59,10 +62,16 @@ public class Interface extends javax.swing.JFrame {
 				StringBuffer chaine=new StringBuffer();
 				chaine.append("X :");
 				chaine.append(e.getX());
-				chaine.append("|");
+				chaine.append(" | ");
 				chaine.append("Y :");
 				chaine.append(e.getY());
-				lCoordonees.setText(chaine.toString());	
+				lCoordonees.setText(chaine.toString());
+			}
+		});
+		
+		tfVille.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				tfVilleActionPerformed(evt);
 			}
 		});
 		
@@ -92,15 +101,10 @@ public class Interface extends javax.swing.JFrame {
 
 		pModifVille.setPreferredSize(new java.awt.Dimension(682, 40));
 
-		lTitreCoordonnees.setText("CoordonnÃ©es :");
+		lTitreCoordonnees.setText("Coordonnées :");
 
 		lTitreVille.setText("Ville :");
 
-		tfVille.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				tfVilleActionPerformed(evt);
-			}
-		});
 
 		javax.swing.GroupLayout pModifVilleLayout = new javax.swing.GroupLayout(
 				pModifVille);
@@ -181,7 +185,7 @@ public class Interface extends javax.swing.JFrame {
 			}
 		});
 
-		bExecuter.setText("ExÃ©cuter");
+		bExecuter.setText("Exécuter");
 		bExecuter.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				bExecuterActionPerformed(evt);
@@ -246,7 +250,7 @@ public class Interface extends javax.swing.JFrame {
 
 		mFichier.setText("Fichier");
 
-		miGrapheAleatoire.setText("CrÃ©er un graphe alÃ©atoire");
+		miGrapheAleatoire.setText("Créer un graphe aléatoire");
 		mFichier.add(miGrapheAleatoire);
 
 		miQuitter.setText("Quitter");
@@ -285,7 +289,21 @@ public class Interface extends javax.swing.JFrame {
 	}// GEN-LAST:event_bExecuterActionPerformed
 
 	private void tfVilleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_tfVilleActionPerformed
-		// TODO add your handling code here:
+        String text=tfVille.getText();
+        if(text.length()!=0){	
+        	int x = pDessin.getx();
+        	int y = pDessin.gety();
+        	//System.out.println(Integer.toString(x)+" "+Integer.toString(y));
+        	Ville v=new Ville(x,y,text);
+        	VDC1.ajouterVille(v);	
+        	pDessin.Refresh(VDC1);
+        	tfVille.setText("");
+        	
+        }
+        else{
+        	System.out.println(text);
+        	tfVille.setText("");
+        }
 	}// GEN-LAST:event_tfVilleActionPerformed
 
 	private void miQuitterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_miQuitterActionPerformed
@@ -356,9 +374,10 @@ public class Interface extends javax.swing.JFrame {
 	private javax.swing.JMenuItem miReinitialiser;
 	private javax.swing.JPanel pAlgo;
 	private javax.swing.JPanel pCarte;
-	private javax.swing.JPanel pDessin;
+	private Dessin pDessin;
 	private javax.swing.JPanel pModifVille;
 	private javax.swing.JPanel pTabVille;
 	private javax.swing.JTextField tfVille;
+	VDC VDC1=new VDC("essai");
 	// End of variables declaration//GEN-END:variables
 }
