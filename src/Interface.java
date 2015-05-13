@@ -2,6 +2,8 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Line2D;
+import java.util.ArrayList;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -178,7 +180,7 @@ public class Interface extends javax.swing.JFrame {
 		pAlgo.setPreferredSize(new java.awt.Dimension(682, 40));
 
 		cbChoixAlgo.setModel(new javax.swing.DefaultComboBoxModel(new String[] {
-				"Item 1", "Item 2", "Item 3", "Item 4" }));
+				"Plus Proche Voisin", "Insertion Du Plus Eloigne", "Two Opt", "Item 4" }));
 		cbChoixAlgo.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				cbChoixAlgoActionPerformed(evt);
@@ -286,6 +288,35 @@ public class Interface extends javax.swing.JFrame {
 
 	private void bExecuterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bExecuterActionPerformed
 		// TODO add your handling code here:
+		H.clear();
+		pDessin.listeChemin.clear();
+		String algo=cbChoixAlgo.getSelectedItem().toString();
+		switch(algo){
+		case "Plus Proche Voisin":
+			H=VDC1.plusProcheVoisin((Ville)VDC1.liste_noeud.get(1), H);
+			break;
+		case "Insertion Du Plus Eloigne":
+			H=VDC1.insertionVoisinLePlusEloigne();
+			break;
+		case "Two Opt":
+			H=VDC1.two_opt();
+			break;
+		case "Item 4":
+			H=null;
+			break;
+		}
+		if(H!=null){
+			for(int i=0; i<H.size()-1;i++){
+				double debx=H.get(i).x;
+				double deby=H.get(i).y;
+				double finx=H.get(i+1).x;
+				double finy=H.get(i+1).y;
+				Line2D.Double ligne=new Line2D.Double(debx, deby,finx,finy);
+				pDessin.listeChemin.add(ligne);
+			}
+		}
+		pDessin.Refresh(VDC1);
+		
 	}// GEN-LAST:event_bExecuterActionPerformed
 
 	private void tfVilleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_tfVilleActionPerformed
@@ -312,6 +343,10 @@ public class Interface extends javax.swing.JFrame {
 
 	private void miReinitialiserActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_miReinitialiserActionPerformed
 		// TODO add your handling code here:
+		VDC1.liste_noeud.clear();
+		H.clear();
+		pDessin.listeChemin.clear();
+		pDessin.Refresh(VDC1);
 	}// GEN-LAST:event_miReinitialiserActionPerformed
 
 	/**
@@ -379,5 +414,6 @@ public class Interface extends javax.swing.JFrame {
 	private javax.swing.JPanel pTabVille;
 	private javax.swing.JTextField tfVille;
 	VDC VDC1=new VDC("essai");
+	ArrayList<Ville> H= new ArrayList<Ville>();
 	// End of variables declaration//GEN-END:variables
 }

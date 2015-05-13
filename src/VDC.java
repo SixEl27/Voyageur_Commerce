@@ -58,6 +58,7 @@ public class VDC extends Graphe{
                     this.plusProcheVoisin((Ville)r.dest, H);
                 }
             }
+            H.add(H.get(0));
             return H;
         }
         
@@ -137,13 +138,17 @@ public class VDC extends Graphe{
                     }
                 }
             }
-            System.out.println(H.size()+" "+this.liste_noeud.size()+"    v");
+            //System.out.println(H.size()+" "+this.liste_noeud.size()+"    v");
+            H.add(H.get(0));
             return H;	
 	}
          
          
         public ArrayList<Ville> insertionVoisinLePlusEloigne(){
-            ArrayList<Ville> H= new ArrayList<Ville>();
+            VDC VDC_copie=new VDC("copie");
+            //VDC_copie.clone(this);
+            //TODO Ne pas modifier le vrai model
+        	ArrayList<Ville> H= new ArrayList<Ville>();
             ArrayList<Route> Liste_R_tot= new ArrayList<Route>();
             ArrayList<Ville> liste_v=(ArrayList<Ville>)(ArrayList<?>)this.liste_noeud; //Toute les villes du graphe
             for (Ville v : liste_v){

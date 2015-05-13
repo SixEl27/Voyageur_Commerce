@@ -16,10 +16,10 @@ public class Route extends Arc{
 
 	/**METHODES*/
 	public double calculDistanceEuc(Ville source, Ville dest){
-		int x1=source.x;
-		int x2=dest.x;
-		int y1=source.y;
-		int y2=dest.y;
+		double x1=source.x;
+		double x2=dest.x;
+		double y1=source.y;
+		double y2=dest.y;
 		double d=Math.sqrt( Math.pow((x2-x1),2) +  Math.pow((y2-y1),2) );
 		return d;
 	}
