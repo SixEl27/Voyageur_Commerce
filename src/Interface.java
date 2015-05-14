@@ -2,6 +2,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
@@ -20,9 +21,9 @@ public class Interface extends javax.swing.JFrame {
 	/**
 	 * Creates new form Interface2
 	 */
-	public Interface() {
-		initComponents();
-		pDessin.Refresh(VDC1);
+	public Interface(VDC vdc) {
+		initComponents(vdc);
+		pDessin.Refresh(this.vdc);
 	}
 
 	/**
@@ -33,7 +34,7 @@ public class Interface extends javax.swing.JFrame {
 	@SuppressWarnings("unchecked")
 	// <editor-fold defaultstate="collapsed"
 	// desc="Generated Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
+	private void initComponents(VDC vdc) {
 
 		pCarte = new javax.swing.JPanel();
 		pDessin = new Dessin();
@@ -52,13 +53,11 @@ public class Interface extends javax.swing.JFrame {
 		miQuitter = new javax.swing.JMenuItem();
 		mEditer = new javax.swing.JMenu();
 		miReinitialiser = new javax.swing.JMenuItem();
+		this.vdc=vdc;
 
 		//==========================================================================================================================================================================
 		//Modification code netbeans
-		
 		pDessin.addMouseMotionListener(new MouseAdapter(){
-
-			@Override
 			public void mouseMoved(MouseEvent e) {
 				//Creation de la chaine de caractÃ¨re
 				StringBuffer chaine=new StringBuffer();
@@ -68,6 +67,12 @@ public class Interface extends javax.swing.JFrame {
 				chaine.append("Y :");
 				chaine.append(e.getY());
 				lCoordonees.setText(chaine.toString());
+			}
+		});
+		//Focus sur le champ de ville quand on clique sur le panneau de dessin
+		pDessin.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				tfVille.requestFocus();
 			}
 		});
 		
@@ -103,7 +108,7 @@ public class Interface extends javax.swing.JFrame {
 
 		pModifVille.setPreferredSize(new java.awt.Dimension(682, 40));
 
-		lTitreCoordonnees.setText("Coordonnées :");
+		lTitreCoordonnees.setText("Coordonnï¿½es :");
 
 		lTitreVille.setText("Ville :");
 
@@ -187,7 +192,7 @@ public class Interface extends javax.swing.JFrame {
 			}
 		});
 
-		bExecuter.setText("Exécuter");
+		bExecuter.setText("Exï¿½cuter");
 		bExecuter.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				bExecuterActionPerformed(evt);
@@ -252,7 +257,7 @@ public class Interface extends javax.swing.JFrame {
 
 		mFichier.setText("Fichier");
 
-		miGrapheAleatoire.setText("Créer un graphe aléatoire");
+		miGrapheAleatoire.setText("Crï¿½er un graphe alï¿½atoire");
 		mFichier.add(miGrapheAleatoire);
 
 		miQuitter.setText("Quitter");
@@ -285,37 +290,28 @@ public class Interface extends javax.swing.JFrame {
 	private void cbChoixAlgoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cbChoixAlgoActionPerformed
 		// TODO add your handling code here:
 	}// GEN-LAST:event_cbChoixAlgoActionPerformed
-
+	
 	private void bExecuterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bExecuterActionPerformed
-		// TODO add your handling code here:
-		H.clear();
-		pDessin.listeChemin.clear();
+		// TODO Modifier ca pour plusieurs solutions
+		//On vide les solutions proposÃ©es
+		vdc.listeSolution.clear();
+		//on switch sur le choix et on lance l'algo
 		String algo=cbChoixAlgo.getSelectedItem().toString();
 		switch(algo){
 		case "Plus Proche Voisin":
-			H=VDC1.plusProcheVoisin((Ville)VDC1.liste_noeud.get(1), H);
+			vdc.plusProcheVoisin((Ville)vdc.liste_noeud.get(1));
 			break;
 		case "Insertion Du Plus Eloigne":
-			H=VDC1.insertionVoisinLePlusEloigne();
+			vdc.insertionVoisinLePlusEloigne();
 			break;
 		case "Two Opt":
-			H=VDC1.two_opt();
+			vdc.two_opt();
 			break;
 		case "Item 4":
-			H=null;
+			System.out.println("Ha ha ha, bouton inutile !");
 			break;
 		}
-		if(H!=null){
-			for(int i=0; i<H.size()-1;i++){
-				double debx=H.get(i).x;
-				double deby=H.get(i).y;
-				double finx=H.get(i+1).x;
-				double finy=H.get(i+1).y;
-				Line2D.Double ligne=new Line2D.Double(debx, deby,finx,finy);
-				pDessin.listeChemin.add(ligne);
-			}
-		}
-		pDessin.Refresh(VDC1);
+		pDessin.Refresh(vdc);
 		
 	}// GEN-LAST:event_bExecuterActionPerformed
 
@@ -326,8 +322,8 @@ public class Interface extends javax.swing.JFrame {
         	int y = pDessin.gety();
         	//System.out.println(Integer.toString(x)+" "+Integer.toString(y));
         	Ville v=new Ville(x,y,text);
-        	VDC1.ajouterVille(v);	
-        	pDessin.Refresh(VDC1);
+        	vdc.ajouterVille(v);	
+        	pDessin.Refresh(vdc);
         	tfVille.setText("");
         	
         }
@@ -343,57 +339,15 @@ public class Interface extends javax.swing.JFrame {
 
 	private void miReinitialiserActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_miReinitialiserActionPerformed
 		// TODO add your handling code here:
-		VDC1.liste_noeud.clear();
-		H.clear();
-		pDessin.listeChemin.clear();
-		pDessin.Refresh(VDC1);
+		vdc.liste_noeud.clear();
+		vdc.listeSolution.clear();
+		pDessin.Refresh(vdc);
 	}// GEN-LAST:event_miReinitialiserActionPerformed
 
 	/**
 	 * @param args
 	 *            the command line arguments
 	 */
-	public static void main(String args[]) {
-		/* Set the Nimbus look and feel */
-		// <editor-fold defaultstate="collapsed"
-		// desc=" Look and feel setting code (optional) ">
-		/*
-		 * If Nimbus (introduced in Java SE 6) is not available, stay with the
-		 * default look and feel. For details see
-		 * http://download.oracle.com/javase
-		 * /tutorial/uiswing/lookandfeel/plaf.html
-		 */
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager
-					.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(Interface.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(Interface.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(Interface.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(Interface.class.getName()).log(
-					java.util.logging.Level.SEVERE, null, ex);
-		}
-		// </editor-fold>
-		// </editor-fold>
-
-		/* Create and display the form */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new Interface().setVisible(true);
-			}
-		});
-	}
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JButton bExecuter;
@@ -413,7 +367,6 @@ public class Interface extends javax.swing.JFrame {
 	private javax.swing.JPanel pModifVille;
 	private javax.swing.JPanel pTabVille;
 	private javax.swing.JTextField tfVille;
-	VDC VDC1=new VDC("essai");
-	ArrayList<Ville> H= new ArrayList<Ville>();
+	private VDC vdc;
 	// End of variables declaration//GEN-END:variables
 }

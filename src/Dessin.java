@@ -16,23 +16,27 @@ public class Dessin extends JComponent{
 	int x,y;
 	double tailleVille=10;
 	//ArrayList<Shape> BufferForme;
-	ArrayList<Shape> listeEllipse =  new ArrayList<Shape>();
-	ArrayList<Shape> listeLigne =  new ArrayList<Shape>();
-	ArrayList<Shape> listeChemin =  new ArrayList<Shape>();
+//	ArrayList<Shape> listeEllipse =  new ArrayList<Shape>();
+//	ArrayList<Shape> listeLigne =  new ArrayList<Shape>();
+//	ArrayList<Shape> listeChemin =  new ArrayList<Shape>();
+	ArrayList<Shape> listeEllipse;
+	ArrayList<Shape> listeLigne;
+	ArrayList<Shape> listeChemin;
 	Shape formeEnCours;
 	
 	public Dessin(){
 		super();
+		listeEllipse =  new ArrayList<Shape>();
+		listeLigne =  new ArrayList<Shape>();
+		listeChemin =  new ArrayList<Shape>();
 		formeEnCours = null;
-		//BufferForme = new ArrayList<Shape>();
-		//listeForme = new ArrayList<Shape>();
 		
 		addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				//on surligne la selection
 				x = e.getX();
 				y = e.getY();
 				formeEnCours = new Ellipse2D.Double(x-(tailleVille/2.0),y-(tailleVille/2.0),tailleVille,tailleVille);
-				//BufferForme.add(formeEnCours);
 				repaint();
 			}
 		});
@@ -67,27 +71,24 @@ public class Dessin extends JComponent{
 			g2.setColor(Color.WHITE);
 			g2.draw(listeLigne.get(i));
 		}
+		for(int i=0;i<listeChemin.size();i++){
+			g2.setColor(Color.GREEN);
+			g2.draw(listeChemin.get(i));
+		}
 		for(int i=0;i<listeEllipse.size();i++){
 			g2.setColor(Color.BLUE);
 			g2.fill(listeEllipse.get(i));
 		}
-		if(!listeChemin.isEmpty()){
-			for(int i=0;i<listeChemin.size();i++){
-				g2.setColor(Color.GREEN);
-				g2.draw(listeChemin.get(i));
-			}
-		}
-		else{
-			System.out.println("Chemin vide");
-		}
+
 	}
 	
-	public void Refresh(VDC VDC1){
+	public void Refresh(VDC vdc){
 		listeEllipse.clear();
 		listeLigne.clear();
+		listeChemin.clear();
 		Shape ville;
 		ville=null;
-		for(Noeud n : VDC1.liste_noeud){
+		for(Noeud n : vdc.liste_noeud){
 			Ville v = (Ville)n;
 			ville= new Ellipse2D.Double(v.x-(tailleVille/2.0),v.y-(tailleVille/2.0),tailleVille,tailleVille);
 			listeEllipse.add(ville);
@@ -98,6 +99,15 @@ public class Dessin extends JComponent{
 				double finx=((Ville)r.dest).x;
 				double finy=((Ville)r.dest).y;
 				listeLigne.add(new Line2D.Double(debx, deby,finx,finy));
+			}
+		}
+		for(Chemin c : vdc.listeSolution){
+			for(int i=0; i<c.size()-1;i++){
+				double debx=c.get(i).x;
+				double deby=c.get(i).y;
+				double finx=c.get(i+1).x;
+				double finy=c.get(i+1).y;
+				listeChemin.add(new Line2D.Double(debx, deby,finx,finy));
 			}
 		}
 		this.repaint();
