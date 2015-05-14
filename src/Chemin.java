@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 public class Chemin extends ArrayList<Ville>{
-	int longueur;
+	double longueur;
 	String commentaire;
 	
 	/**CONSTRUCTEURS*/
@@ -15,20 +15,24 @@ public class Chemin extends ArrayList<Ville>{
 	public String toString(){
 		StringBuffer sb=new StringBuffer();
 		//ajout du commentaire
+		sb.append("commentaire :\t");
 		sb.append(commentaire);
 		sb.append(" ");
+		sb.append("\n");
+		sb.append("chemin :\t");
 		//ajout du nom de chaque ville
 		for (Ville v : this){
 			sb.append(v.nom);
 			sb.append(" - ");
 		}
+		sb.append("\n");
 		//ajout de la longueur
-		sb.append("longueur : ");
+		sb.append("longueur :\t");
 		sb.append(longueur);
 		return sb.toString();
 	}
 	
-	public boolean add(Ville v){
+	public boolean addVille(Ville v){
 		//calcul distance entre le dernier element de la liste et le nouveau
 		if (! this.isEmpty()){
 			//dernier element
