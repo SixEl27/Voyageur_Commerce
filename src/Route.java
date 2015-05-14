@@ -11,18 +11,11 @@ public class Route extends Arc{
 	/**CONSTRUCTEURS*/
 	public Route(Ville source, Ville dest){
 		super(source,dest);
-		this.longueur=calculDistanceEuc(source, dest);
+		this.longueur=source.calculDistanceEuc(dest);
 	}
 
 	/**METHODES*/
-	public double calculDistanceEuc(Ville source, Ville dest){
-		double x1=source.x;
-		double x2=dest.x;
-		double y1=source.y;
-		double y2=dest.y;
-		double d=Math.sqrt( Math.pow((x2-x1),2) +  Math.pow((y2-y1),2) );
-		return d;
-	}
+
 	
         public int getId() {
             return this.id;

@@ -22,6 +22,16 @@ public class Ville extends Noeud{
 	}
 
 	/**METHODES*/
+	
+	public double calculDistanceEuc(Ville dest){
+		//Calcul distance entre la ville actuelle et une ville de destination
+		double x1=this.x;
+		double x2=dest.x;
+		double y1=this.y;
+		double y2=dest.y;
+		double d=Math.sqrt( Math.pow((x2-x1),2) +  Math.pow((y2-y1),2) );
+		return d;
+	}
 	public String toString(){
 		StringBuffer sb= new StringBuffer();
 		sb.append("Ville : ");
