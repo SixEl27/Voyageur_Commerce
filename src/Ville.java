@@ -42,11 +42,6 @@ public class Ville extends Noeud{
 		sb.append(this.x);
 		sb.append(", y : ");
 		sb.append(this.y);
-		sb.append("\n");
-		for(Arc a : liste_arc){
-			sb.append(((Route)a).toString());
-			sb.append('\n');
-		}
 		return sb.toString();
 	}
 }
