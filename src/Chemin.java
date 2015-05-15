@@ -1,6 +1,5 @@
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-
-import org.w3c.dom.ranges.RangeException;
 
 public class Chemin extends ArrayList<Ville> {
 	double longueur;
@@ -16,22 +15,14 @@ public class Chemin extends ArrayList<Ville> {
 	/** METHODES */
 
 	public String toString() {
+		DecimalFormat df = new DecimalFormat("########.00");
 		StringBuffer sb = new StringBuffer();
 		// ajout du commentaire
-		sb.append("commentaire :\t");
 		sb.append(commentaire);
 		sb.append(" ");
-		sb.append("\n");
-		sb.append("chemin :\t");
-		// ajout du nom de chaque ville
-		for (Ville v : this) {
-			sb.append(v.nom);
-			sb.append(" - ");
-		}
-		sb.append("\n");
 		// ajout de la longueur
-		sb.append("longueur :\t");
-		sb.append(longueur);
+		sb.append("longueur : ");
+		sb.append(df.format(longueur));
 		return sb.toString();
 	}
 

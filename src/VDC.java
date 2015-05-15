@@ -243,7 +243,7 @@ public class VDC extends Graphe {
 			// TODO vérifier que l'insertion n'ecrase pas ds la liste H
 		}
 		// retour au premier element
-		H.add(H.get(0));
+		H.addVille(H.get(0));
 		listeSolution.add(H);
 	};
 

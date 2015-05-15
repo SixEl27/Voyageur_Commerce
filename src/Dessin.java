@@ -62,9 +62,6 @@ public class Dessin extends JComponent{
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
-		g2.setColor(Color.RED);
-		if(formeEnCours!=null)
-			g2.draw(formeEnCours);
 		g2.setColor(Color.BLUE);
 		System.out.println("");
 		for(int i=0;i<listeLigne.size();i++){
@@ -79,6 +76,9 @@ public class Dessin extends JComponent{
 			g2.setColor(Color.BLUE);
 			g2.fill(listeEllipse.get(i));
 		}
+		g2.setColor(Color.RED);
+		if(formeEnCours!=null)
+			g2.draw(formeEnCours);
 
 	}
 	
