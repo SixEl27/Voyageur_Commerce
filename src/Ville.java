@@ -16,6 +16,13 @@ public class Ville extends Noeud{
 		this.nom=nom;
 	}
 	
+	public Ville(Ville v){
+		super();
+		this.x=v.x;
+		this.y=v.y;
+		this.nom=v.nom;
+	}
+	
 	public Ville(){
 		super();
 		

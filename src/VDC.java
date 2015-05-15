@@ -26,6 +26,15 @@ public class VDC extends Graphe {
 		}
 		listeSolution = new ArrayList<Chemin>();
 	}
+	
+	public VDC(VDC VDC1){
+		super(VDC1.nom+"_copie");
+		for(Noeud n : VDC1.liste_noeud){
+			Ville v=new Ville((Ville)n);
+			this.ajouterVille(v);
+		}
+		this.listeSolution= new ArrayList<Chemin>();
+	}
 
 	/** METHODES */
 	public void ajouterVille(Ville source) {
@@ -156,29 +165,26 @@ public class VDC extends Graphe {
 	}
 
 	public void insertionVoisinLePlusEloigne() {
-		VDC VDC_copie = new VDC("copie");
+		VDC VDC_copie = new VDC(this);
+		System.out.println(VDC_copie);//vide
 		// VDC_copie.clone(this);
 		// TODO Ne pas modifier le vrai model
 		// TODO implementer cloneable partout, ca va etre marrant !
 		Chemin H = new Chemin("[insertionVoisinLePlusEloigne]");
 		ArrayList<Route> Liste_R_tot = new ArrayList<Route>();
-		ArrayList<Ville> liste_v = (ArrayList<Ville>) (ArrayList<?>) this.liste_noeud; // Toute
-																						// les
-																						// villes
-																						// du
-																						// graphe
+		ArrayList<Ville> liste_v = (ArrayList<Ville>) (ArrayList<?>) VDC_copie.liste_noeud; // Toute les villes du graphe
 		for (Ville v : liste_v) {
 			ArrayList<Route> Liste_R = (ArrayList<Route>) (ArrayList<?>) v.liste_arc;
 			Liste_R_tot.addAll(Liste_R);
 		}
 		Collections.sort(Liste_R_tot, Route.DISTANCE_COMPARATOR);
-		Route r = Liste_R_tot.get(Liste_R_tot.size() - 1);
+		Route r = Liste_R_tot.get(Liste_R_tot.size()-1);
 		H.addVille((Ville) r.source);
 		H.addVille((Ville) r.dest);
 		liste_v.remove((Ville) r.source);
 		liste_v.remove((Ville) r.dest);
 		r = null;
-		while (!this.liste_noeud.isEmpty()) { // Tant que le circuit nâ€™est pas
+		while (!VDC_copie.liste_noeud.isEmpty()) { // Tant que le circuit nâ€™est pas
 												// complet-1
 			Route route_max = null;
 			Hashtable<Ville, Route> ht = new Hashtable<Ville, Route>(); // hashtable
@@ -205,18 +211,8 @@ public class VDC extends Graphe {
 															// passage)
 								// System.out.println(v_connu.id);
 							} else { // Sinon
-								if (ht.get(v_connu).longueur > ((Route) a).longueur) { // Si
-																						// la
-																						// longueur
-																						// de
-																						// la
-																						// nouvelle
-																						// route
-																						// est
-																						// infÃ©rieur
-																						// Ã 
-																						// celle
-																						// prÃ©-enregistrÃ©e
+								if (ht.get(v_connu).longueur > ((Route) a).longueur) { 
+									// Si la longueur de la nouvelle route est inférieur à celle pré-enregistrée
 									ht.put(v_connu, (Route) a); // remplacement
 																// de l'ancienne
 																// route par la
