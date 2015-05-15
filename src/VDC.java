@@ -16,12 +16,12 @@ public class VDC extends Graphe {
 		listeSolution = new ArrayList<Chemin>();
 	}
 
-	public VDC(int nb_noeud, int limite) {
+	public VDC(int nb_noeud, int limitex, int limitey) {
 		// Aleatoire
 		super("VDC aleatoire - " + nb_noeud + "noeuds");
 		for (int i = 0; i < nb_noeud; i++) {
-			this.ajouterVille(new Ville(GenerationAleatoire.genererInt(limite),
-					GenerationAleatoire.genererInt(limite), GenerationAleatoire
+			this.ajouterVille(new Ville(GenerationAleatoire.genererInt(limitex),
+					GenerationAleatoire.genererInt(limitey), GenerationAleatoire
 							.genererString("azertyuiopqsdfghjklmwxcvbn", 6)));
 		}
 		listeSolution = new ArrayList<Chemin>();
