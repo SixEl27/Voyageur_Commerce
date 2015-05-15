@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JComponent;
 
@@ -15,13 +16,10 @@ public class Dessin extends JComponent{
 
 	int x,y;
 	double tailleVille=10;
-	//ArrayList<Shape> BufferForme;
-//	ArrayList<Shape> listeEllipse =  new ArrayList<Shape>();
-//	ArrayList<Shape> listeLigne =  new ArrayList<Shape>();
-//	ArrayList<Shape> listeChemin =  new ArrayList<Shape>();
 	ArrayList<Shape> listeEllipse;
 	ArrayList<Shape> listeLigne;
 	ArrayList<Shape> listeChemin;
+	HashMap<Shape, Ville> lienEllipseVille;
 	Shape formeEnCours;
 	
 	public Dessin(){
@@ -29,14 +27,26 @@ public class Dessin extends JComponent{
 		listeEllipse =  new ArrayList<Shape>();
 		listeLigne =  new ArrayList<Shape>();
 		listeChemin =  new ArrayList<Shape>();
+		lienEllipseVille = new HashMap<Shape, Ville>();
 		formeEnCours = null;
 		
 		addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				//on surligne la selection
 				x = e.getX();
 				y = e.getY();
-				formeEnCours = new Ellipse2D.Double(x-(tailleVille/2.0),y-(tailleVille/2.0),tailleVille,tailleVille);
+				formeEnCours = null;
+				for(Shape s : listeEllipse){
+					
+					System.out.println(x);
+					System.out.println(y);
+					if (s.contains(x,y)){
+						formeEnCours = new Ellipse2D.Double(s.getBounds().x,s.getBounds().y,tailleVille,tailleVille);
+						break;
+					}
+				}
+				if (formeEnCours==null){
+					formeEnCours = new Ellipse2D.Double(x-(tailleVille/2.0),y-(tailleVille/2.0),tailleVille,tailleVille);
+				}
 				repaint();
 			}
 		});
@@ -86,12 +96,16 @@ public class Dessin extends JComponent{
 		listeEllipse.clear();
 		listeLigne.clear();
 		listeChemin.clear();
-		Shape ville;
-		ville=null;
+		Shape formeVille;
+		formeVille=null;
+		//on ajoute tout les noeuds
 		for(Noeud n : vdc.liste_noeud){
 			Ville v = (Ville)n;
-			ville= new Ellipse2D.Double(v.x-(tailleVille/2.0),v.y-(tailleVille/2.0),tailleVille,tailleVille);
-			listeEllipse.add(ville);
+			formeVille= new Ellipse2D.Double(v.x-(tailleVille/2.0),v.y-(tailleVille/2.0),tailleVille,tailleVille);
+			listeEllipse.add(formeVille);
+			//on ajoute le lien entre les formes et les villes
+			lienEllipseVille.put(formeVille, v);
+			//pour chaque noeud on ajoute les arcs
 			for(Arc a : v.liste_arc){
 				Route r = (Route)a;
 				double debx=((Ville)r.source).x;
@@ -101,6 +115,7 @@ public class Dessin extends JComponent{
 				listeLigne.add(new Line2D.Double(debx, deby,finx,finy));
 			}
 		}
+		//on dessine chaque chemin
 		for(Chemin c : vdc.listeSolution){
 			for(int i=0; i<c.size()-1;i++){
 				double debx=c.get(i).x;
