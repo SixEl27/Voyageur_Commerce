@@ -136,8 +136,7 @@ public class Interface extends javax.swing.JFrame {
 		listVilleAlgo.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if (SwingUtilities.isRightMouseButton(e)) {
-					listVilleAlgo.setSelectedIndex(listVilleAlgo
-							.locationToIndex(e.getPoint()));
+					listVilleAlgo.setSelectedIndex(listVilleAlgo.locationToIndex(e.getPoint()));
 					int row = listVilleAlgo.getSelectedIndex();
 					if (listVilleAlgo.getModel().getElementAt(row) instanceof Ville) {
 						System.out.println(row);
@@ -372,7 +371,12 @@ public class Interface extends javax.swing.JFrame {
 
 		mFichier.setText("Fichier");
 
-		miGrapheAleatoire.setText("CrÃ©er un graphe alÃ©atoire");
+		miGrapheAleatoire.setText("Créer un graphe aléatoire");
+		miGrapheAleatoire.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				miGrapheAleatoireActionPerformed(evt);
+			}
+		});
 		mFichier.add(miGrapheAleatoire);
 
 		miQuitter.setText("Quitter");
@@ -460,6 +464,7 @@ public class Interface extends javax.swing.JFrame {
 		vdc.liste_noeud.clear();
 		vdc.listeSolution.clear();
 		pDessin.Refresh(vdc);
+		refreshJlist();
 
 	}// GEN-LAST:event_miReinitialiserActionPerformed
 
@@ -514,6 +519,32 @@ public class Interface extends javax.swing.JFrame {
 		listVilleAlgo.updateUI();
 	}
 
+	private void miGrapheAleatoireActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cbChoixAlgoActionPerformed
+		String inputValue = JOptionPane.showInputDialog("Donner le nombre de ville a générer :");
+		boolean valeur = true; 
+		char[] tab = inputValue.toCharArray(); 
+		for(char carac : tab){ 
+			if(!Character.isDigit(carac)){ 
+				valeur=false; 
+			}
+		}
+		if(valeur){
+			int limit = Integer.parseInt(inputValue);
+			vdc.listeSolution.clear();
+			vdc.liste_noeud.clear();
+			double limitX=pDessin.getSize().getWidth();
+			int X=(int)limitX;
+			double limitY=pDessin.getSize().getHeight();
+			int Y=(int)limitY;
+			vdc = new VDC(limit,X,Y);
+			pDessin.Refresh(vdc);
+			refreshJlist();
+		}
+		else{
+			JOptionPane.showMessageDialog(pDessin, "Vous devez renseigner un integer", "Attention", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
 	/**
 	 * @param args
 	 *            the command line arguments
