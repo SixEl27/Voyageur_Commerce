@@ -29,6 +29,9 @@ public class Ville extends Noeud{
 	}
 
 	/**METHODES*/
+	public void setNom(String nom){
+		this.nom=nom;
+	}
 	
 	public double calculDistanceEuc(Ville dest){
 		//Calcul distance entre la ville actuelle et une ville de destination
