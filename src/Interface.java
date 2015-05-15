@@ -33,259 +33,222 @@ public class Interface extends javax.swing.JFrame {
 	 */
 	@SuppressWarnings("unchecked")
 	// <editor-fold defaultstate="collapsed"
-	// desc="Generated Code">//GEN-BEGIN:initComponents
-	private void initComponents(VDC vdc) {
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents(VDC vdc) {
 
-		pCarte = new javax.swing.JPanel();
-		pDessin = new Dessin();
-		pModifVille = new javax.swing.JPanel();
-		lTitreCoordonnees = new javax.swing.JLabel();
-		lCoordonees = new javax.swing.JLabel();
-		lTitreVille = new javax.swing.JLabel();
-		tfVille = new javax.swing.JTextField();
-		pAlgo = new javax.swing.JPanel();
-		cbChoixAlgo = new javax.swing.JComboBox();
-		bExecuter = new javax.swing.JButton();
-		pTabVille = new javax.swing.JPanel();
-		jMenuBar1 = new javax.swing.JMenuBar();
-		mFichier = new javax.swing.JMenu();
-		miGrapheAleatoire = new javax.swing.JMenuItem();
-		miQuitter = new javax.swing.JMenuItem();
-		mEditer = new javax.swing.JMenu();
-		miReinitialiser = new javax.swing.JMenuItem();
-		this.vdc=vdc;
+        pCarte = new javax.swing.JPanel();
+        pDessin = new Dessin();
+        pModifVille = new javax.swing.JPanel();
+        lTitreCoordonnees = new javax.swing.JLabel();
+        lCoordonees = new javax.swing.JLabel();
+        lTitreVille = new javax.swing.JLabel();
+        tfVille = new javax.swing.JTextField();
+        lCoordonneeVille = new javax.swing.JLabel();
+        pAlgo = new javax.swing.JPanel();
+        cbChoixAlgo = new javax.swing.JComboBox();
+        bExecuter = new javax.swing.JButton();
+        pTabVille = new javax.swing.JPanel();
+        jScrollTabVille = new javax.swing.JScrollPane();
+        listVilleAlgo = new javax.swing.JList();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mFichier = new javax.swing.JMenu();
+        miGrapheAleatoire = new javax.swing.JMenuItem();
+        miQuitter = new javax.swing.JMenuItem();
+        mEditer = new javax.swing.JMenu();
+        miReinitialiser = new javax.swing.JMenuItem();
+        this.vdc=vdc;
 
-		//==========================================================================================================================================================================
-		//Modification code netbeans
-		pDessin.addMouseMotionListener(new MouseAdapter(){
-			public void mouseMoved(MouseEvent e) {
-				//Creation de la chaine de caractère
-				StringBuffer chaine=new StringBuffer();
-				chaine.append("X :");
-				chaine.append(e.getX());
-				chaine.append(" | ");
-				chaine.append("Y :");
-				chaine.append(e.getY());
-				lCoordonees.setText(chaine.toString());
-			}
-		});
-		//Focus sur le champ de ville quand on clique sur le panneau de dessin
-		pDessin.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				tfVille.requestFocus();
-			}
-		});
-		
-		tfVille.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				tfVilleActionPerformed(evt);
-			}
-		});
-		
-		//==========================================================================================================================================================================
+      //==========================================================================================================================================================================
+      		//Modification code netbeans
+      		pDessin.addMouseMotionListener(new MouseAdapter(){
+      			public void mouseMoved(MouseEvent e) {
+      				//Creation de la chaine de caract�re
+      				StringBuffer chaine=new StringBuffer();
+      				chaine.append("X :");
+      				chaine.append(e.getX());
+      				chaine.append(" | ");
+      				chaine.append("Y :");
+      				chaine.append(e.getY());
+      				lCoordonees.setText(chaine.toString());
+      			}
+      		});
+      		//Focus sur le champ de ville quand on clique sur le panneau de dessin
+      		pDessin.addMouseListener(new MouseAdapter() {
+      			public void mousePressed(MouseEvent e) {
+      				tfVille.requestFocus();
+      			}
+      		});
+      		
+      		tfVille.addActionListener(new java.awt.event.ActionListener() {
+      			public void actionPerformed(java.awt.event.ActionEvent evt) {
+      				tfVilleActionPerformed(evt);
+      			}
+      		});
+      		
+      		
+      		//==========================================================================================================================================================================
+        
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFocusCycleRoot(false);
+        setFocusTraversalPolicyProvider(true);
+        setMinimumSize(new java.awt.Dimension(650, 600));
+        setPreferredSize(new java.awt.Dimension(900, 700));
 
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		setFocusTraversalPolicyProvider(true);
-		setMinimumSize(new java.awt.Dimension(600, 600));
-		setPreferredSize(new java.awt.Dimension(800, 700));
+        pCarte.setLayout(new java.awt.BorderLayout());
 
-		pCarte.setLayout(new java.awt.BorderLayout());
+        pDessin.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 102), 1, true));
 
-		pDessin.setBorder(javax.swing.BorderFactory
-				.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        javax.swing.GroupLayout pDessinLayout = new javax.swing.GroupLayout(pDessin);
+        pDessin.setLayout(pDessinLayout);
+        pDessinLayout.setHorizontalGroup(
+            pDessinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 645, Short.MAX_VALUE)
+        );
+        pDessinLayout.setVerticalGroup(
+            pDessinLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 369, Short.MAX_VALUE)
+        );
 
-		javax.swing.GroupLayout pDessinLayout = new javax.swing.GroupLayout(
-				pDessin);
-		pDessin.setLayout(pDessinLayout);
-		pDessinLayout.setHorizontalGroup(pDessinLayout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 678,
-				Short.MAX_VALUE));
-		pDessinLayout.setVerticalGroup(pDessinLayout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 315,
-				Short.MAX_VALUE));
+        pCarte.add(pDessin, java.awt.BorderLayout.CENTER);
 
-		pCarte.add(pDessin, java.awt.BorderLayout.CENTER);
+        pModifVille.setPreferredSize(new java.awt.Dimension(682, 40));
 
-		pModifVille.setPreferredSize(new java.awt.Dimension(682, 40));
+        lTitreCoordonnees.setText("Coordonnées :");
 
-		lTitreCoordonnees.setText("Coordonn�es :");
+        lTitreVille.setText("Ville :");
 
-		lTitreVille.setText("Ville :");
+        tfVille.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfVilleActionPerformed(evt);
+            }
+        });
 
+        lCoordonneeVille.setName("lCoordonneVille"); // NOI18N
 
-		javax.swing.GroupLayout pModifVilleLayout = new javax.swing.GroupLayout(
-				pModifVille);
-		pModifVille.setLayout(pModifVilleLayout);
-		pModifVilleLayout
-				.setHorizontalGroup(pModifVilleLayout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								pModifVilleLayout
-										.createSequentialGroup()
-										.addContainerGap()
-										.addComponent(
-												lTitreCoordonnees,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												84,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-										.addComponent(
-												lCoordonees,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												124,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(
-												lTitreVille,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												36,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(
-												tfVille,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												95,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(313, Short.MAX_VALUE)));
-		pModifVilleLayout
-				.setVerticalGroup(pModifVilleLayout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								pModifVilleLayout
-										.createParallelGroup(
-												javax.swing.GroupLayout.Alignment.BASELINE)
-										.addComponent(
-												lTitreCoordonnees,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)
-										.addComponent(
-												lCoordonees,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												40,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addComponent(
-												lTitreVille,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												40,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addComponent(
-												tfVille,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												javax.swing.GroupLayout.PREFERRED_SIZE)));
+        javax.swing.GroupLayout pModifVilleLayout = new javax.swing.GroupLayout(pModifVille);
+        pModifVille.setLayout(pModifVilleLayout);
+        pModifVilleLayout.setHorizontalGroup(
+            pModifVilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pModifVilleLayout.createSequentialGroup()
+                .addComponent(lCoordonees, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(lTitreVille, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfVille, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addComponent(lTitreCoordonnees, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lCoordonneeVille, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(131, Short.MAX_VALUE))
+        );
+        pModifVilleLayout.setVerticalGroup(
+            pModifVilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pModifVilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(lTitreCoordonnees, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lCoordonees, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lTitreVille, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfVille, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(lCoordonneeVille, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
-		pCarte.add(pModifVille, java.awt.BorderLayout.NORTH);
+        pCarte.add(pModifVille, java.awt.BorderLayout.NORTH);
 
-		pAlgo.setPreferredSize(new java.awt.Dimension(682, 40));
+        pAlgo.setPreferredSize(new java.awt.Dimension(682, 40));
 
-		cbChoixAlgo.setModel(new javax.swing.DefaultComboBoxModel(new String[] {
-				"Plus Proche Voisin", "Insertion Du Plus Eloigne", "Two Opt", "Item 4" }));
-		cbChoixAlgo.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				cbChoixAlgoActionPerformed(evt);
-			}
-		});
+        cbChoixAlgo.setModel(new javax.swing.DefaultComboBoxModel(new String[] {
+        		"Plus Proche Voisin", "Insertion Du Plus Eloigne", "Two Opt", "Vider" }));
+        cbChoixAlgo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbChoixAlgoActionPerformed(evt);
+            }
+        });
 
-		bExecuter.setText("Ex�cuter");
-		bExecuter.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				bExecuterActionPerformed(evt);
-			}
-		});
+        bExecuter.setText("Exécuter");
+        bExecuter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bExecuterActionPerformed(evt);
+            }
+        });
 
-		javax.swing.GroupLayout pAlgoLayout = new javax.swing.GroupLayout(pAlgo);
-		pAlgo.setLayout(pAlgoLayout);
-		pAlgoLayout
-				.setHorizontalGroup(pAlgoLayout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								pAlgoLayout
-										.createSequentialGroup()
-										.addContainerGap()
-										.addComponent(
-												cbChoixAlgo,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												180,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(
-												bExecuter,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												111,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(375, Short.MAX_VALUE)));
-		pAlgoLayout.setVerticalGroup(pAlgoLayout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-				pAlgoLayout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(bExecuter,
-								javax.swing.GroupLayout.PREFERRED_SIZE, 40,
-								javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addComponent(cbChoixAlgo,
-								javax.swing.GroupLayout.PREFERRED_SIZE,
-								javax.swing.GroupLayout.DEFAULT_SIZE,
-								javax.swing.GroupLayout.PREFERRED_SIZE)));
+        javax.swing.GroupLayout pAlgoLayout = new javax.swing.GroupLayout(pAlgo);
+        pAlgo.setLayout(pAlgoLayout);
+        pAlgoLayout.setHorizontalGroup(
+            pAlgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAlgoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cbChoixAlgo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bExecuter, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(340, Short.MAX_VALUE))
+        );
+        pAlgoLayout.setVerticalGroup(
+            pAlgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pAlgoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(bExecuter, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbChoixAlgo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
-		pCarte.add(pAlgo, java.awt.BorderLayout.SOUTH);
+        pCarte.add(pAlgo, java.awt.BorderLayout.SOUTH);
 
-		getContentPane().add(pCarte, java.awt.BorderLayout.CENTER);
+        getContentPane().add(pCarte, java.awt.BorderLayout.CENTER);
 
-		pTabVille.setBorder(javax.swing.BorderFactory
-				.createLineBorder(new java.awt.Color(204, 204, 204)));
-		pTabVille.setPreferredSize(new java.awt.Dimension(100, 399));
+        pTabVille.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        pTabVille.setFocusTraversalPolicyProvider(true);
+        pTabVille.setPreferredSize(new java.awt.Dimension(150, 399));
 
-		javax.swing.GroupLayout pTabVilleLayout = new javax.swing.GroupLayout(
-				pTabVille);
-		pTabVille.setLayout(pTabVilleLayout);
-		pTabVilleLayout.setHorizontalGroup(pTabVilleLayout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 98,
-				Short.MAX_VALUE));
-		pTabVilleLayout.setVerticalGroup(pTabVilleLayout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 397,
-				Short.MAX_VALUE));
+        jScrollTabVille.setName("lVilleAlgo"); // NOI18N
 
-		getContentPane().add(pTabVille, java.awt.BorderLayout.EAST);
+        listVilleAlgo.setName("listVilleAlgo"); // NOI18N
+        jScrollTabVille.setViewportView(listVilleAlgo);
 
-		mFichier.setText("Fichier");
+        javax.swing.GroupLayout pTabVilleLayout = new javax.swing.GroupLayout(pTabVille);
+        pTabVille.setLayout(pTabVilleLayout);
+        pTabVilleLayout.setHorizontalGroup(
+            pTabVilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 148, Short.MAX_VALUE)
+            .addGroup(pTabVilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollTabVille, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
+        );
+        pTabVilleLayout.setVerticalGroup(
+            pTabVilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 449, Short.MAX_VALUE)
+            .addGroup(pTabVilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollTabVille, javax.swing.GroupLayout.DEFAULT_SIZE, 449, Short.MAX_VALUE))
+        );
 
-		miGrapheAleatoire.setText("Cr�er un graphe al�atoire");
-		mFichier.add(miGrapheAleatoire);
+        getContentPane().add(pTabVille, java.awt.BorderLayout.EAST);
 
-		miQuitter.setText("Quitter");
-		miQuitter.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				miQuitterActionPerformed(evt);
-			}
-		});
-		mFichier.add(miQuitter);
+        mFichier.setText("Fichier");
 
-		jMenuBar1.add(mFichier);
+        miGrapheAleatoire.setText("Créer un graphe aléatoire");
+        mFichier.add(miGrapheAleatoire);
 
-		mEditer.setText("Editer");
+        miQuitter.setText("Quitter");
+        miQuitter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miQuitterActionPerformed(evt);
+            }
+        });
+        mFichier.add(miQuitter);
 
-		miReinitialiser.setText("Re-initialiser");
-		miReinitialiser.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				miReinitialiserActionPerformed(evt);
-			}
-		});
-		mEditer.add(miReinitialiser);
+        jMenuBar1.add(mFichier);
 
-		jMenuBar1.add(mEditer);
+        mEditer.setText("Editer");
 
-		setJMenuBar(jMenuBar1);
+        miReinitialiser.setText("Re-initialiser");
+        miReinitialiser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miReinitialiserActionPerformed(evt);
+            }
+        });
+        mEditer.add(miReinitialiser);
 
-		pack();
-	}// </editor-fold>//GEN-END:initComponents
+        jMenuBar1.add(mEditer);
+
+        setJMenuBar(jMenuBar1);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
 
 	private void cbChoixAlgoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cbChoixAlgoActionPerformed
 		// TODO add your handling code here:
@@ -294,7 +257,8 @@ public class Interface extends javax.swing.JFrame {
 	private void bExecuterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bExecuterActionPerformed
 		// TODO Modifier ca pour plusieurs solutions
 		//On vide les solutions proposées
-		vdc.listeSolution.clear();
+		
+        vdc.listeSolution.clear();
 		//on switch sur le choix et on lance l'algo
 		String algo=cbChoixAlgo.getSelectedItem().toString();
 		switch(algo){
@@ -307,8 +271,8 @@ public class Interface extends javax.swing.JFrame {
 		case "Two Opt":
 			vdc.two_opt();
 			break;
-		case "Item 4":
-			System.out.println("Ha ha ha, bouton inutile !");
+		case "Vider":
+			//Pas d'action - Donc Refresh direct
 			break;
 		}
 		pDessin.Refresh(vdc);
@@ -331,6 +295,7 @@ public class Interface extends javax.swing.JFrame {
         	System.out.println(text);
         	tfVille.setText("");
         }
+        
 	}// GEN-LAST:event_tfVilleActionPerformed
 
 	private void miQuitterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_miQuitterActionPerformed
@@ -339,34 +304,39 @@ public class Interface extends javax.swing.JFrame {
 
 	private void miReinitialiserActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_miReinitialiserActionPerformed
 		// TODO add your handling code here:
-		vdc.liste_noeud.clear();
+                
+        vdc.liste_noeud.clear();
 		vdc.listeSolution.clear();
 		pDessin.Refresh(vdc);
-	}// GEN-LAST:event_miReinitialiserActionPerformed
+                
+        }// GEN-LAST:event_miReinitialiserActionPerformed
 
 	/**
 	 * @param args
 	 *            the command line arguments
 	 */
 
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JButton bExecuter;
-	private javax.swing.JComboBox cbChoixAlgo;
-	private javax.swing.JMenuBar jMenuBar1;
-	private javax.swing.JLabel lCoordonees;
-	private javax.swing.JLabel lTitreCoordonnees;
-	private javax.swing.JLabel lTitreVille;
-	private javax.swing.JMenu mEditer;
-	private javax.swing.JMenu mFichier;
-	private javax.swing.JMenuItem miGrapheAleatoire;
-	private javax.swing.JMenuItem miQuitter;
-	private javax.swing.JMenuItem miReinitialiser;
-	private javax.swing.JPanel pAlgo;
-	private javax.swing.JPanel pCarte;
-	private Dessin pDessin;
-	private javax.swing.JPanel pModifVille;
-	private javax.swing.JPanel pTabVille;
-	private javax.swing.JTextField tfVille;
-	private VDC vdc;
-	// End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bExecuter;
+    private javax.swing.JComboBox cbChoixAlgo;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollTabVille;
+    private javax.swing.JLabel lCoordonees;
+    private javax.swing.JLabel lCoordonneeVille;
+    private javax.swing.JLabel lTitreCoordonnees;
+    private javax.swing.JLabel lTitreVille;
+    private javax.swing.JList listVilleAlgo;
+    private javax.swing.JMenu mEditer;
+    private javax.swing.JMenu mFichier;
+    private javax.swing.JMenuItem miGrapheAleatoire;
+    private javax.swing.JMenuItem miQuitter;
+    private javax.swing.JMenuItem miReinitialiser;
+    private javax.swing.JPanel pAlgo;
+    private javax.swing.JPanel pCarte;
+    private Dessin pDessin;
+    private javax.swing.JPanel pModifVille;
+    private javax.swing.JPanel pTabVille;
+    private javax.swing.JTextField tfVille;
+    private VDC vdc;
+    // End of variables declaration//GEN-END:variables
 }
