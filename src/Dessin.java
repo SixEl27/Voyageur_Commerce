@@ -35,15 +35,15 @@ public class Dessin extends JComponent{
 				x = e.getX();
 				y = e.getY();
 				formeEnCours = null;
+				//on regarde si le clique a eu lieu sur une ville
 				for(Shape s : listeEllipse){
-					
-					System.out.println(x);
-					System.out.println(y);
 					if (s.contains(x,y)){
+						//Surligne la ville selectionnée
 						formeEnCours = new Ellipse2D.Double(s.getBounds().x,s.getBounds().y,tailleVille,tailleVille);
 						break;
 					}
 				}
+				//sinon, surligne la zone cliquée
 				if (formeEnCours==null){
 					formeEnCours = new Ellipse2D.Double(x-(tailleVille/2.0),y-(tailleVille/2.0),tailleVille,tailleVille);
 				}
@@ -67,6 +67,10 @@ public class Dessin extends JComponent{
 
 	public Shape getFormeEnCours() {
 		return formeEnCours;
+	}
+	
+	public Ville getVilleEnCours(){
+		return lienEllipseVille.get(formeEnCours);
 	}
 
 	public void paintComponent(Graphics g){
