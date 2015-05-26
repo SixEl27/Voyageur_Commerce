@@ -20,9 +20,10 @@ public class VDC extends Graphe {
 		// Aleatoire
 		super("VDC aleatoire - " + nb_noeud + "noeuds");
 		for (int i = 0; i < nb_noeud; i++) {
-			this.ajouterVille(new Ville(GenerationAleatoire.genererInt(limitex),
-					GenerationAleatoire.genererInt(limitey), GenerationAleatoire
-							.genererString("azertyuiopqsdfghjklmwxcvbn", 6)));
+			this.ajouterVille(new Ville(
+					GenerationAleatoire.genererInt(limitex),
+					GenerationAleatoire.genererInt(limitey),
+					GenerationAleatoire.genererString("azertyuiopqsdfghjklmwxcvbn", 6)));
 		}
 		listeSolution = new ArrayList<Chemin>();
 	}
@@ -197,27 +198,16 @@ public class VDC extends Graphe {
 			// //reduit petit a petit sans savoir pk
 			for (Ville v_connu : H) { // Pour toutes les villes dÃ©jÃ  dans le
 										// circuit
-				for (Ville v_inconnu : liste_v) { // Pour toutes les villes Ã 
-													// visiter
-					for (Arc a : v_connu.liste_arc) { // Pour chaque route dont
-														// la ville connu est
-														// source
-						if (a.dest.id == v_inconnu.id) { // Si la destination
-															// est une ville
-															// inconnu
-							if (ht.get(v_connu) == null) { // Si la table e
-															// hashage est vide
-								ht.put(v_connu, (Route) a); // Ajout (premier
-															// passage)
+				for (Ville v_inconnu : liste_v) { // Pour toutes les villes Ã // visiter
+					for (Arc a : v_connu.liste_arc) { // Pour chaque route dont la ville connu est source
+						if (a.dest.id == v_inconnu.id) { // Si la destination est une ville inconnu
+							if (ht.get(v_connu) == null) { // Si la table de hashage est vide
+								ht.put(v_connu, (Route) a); // Ajout (premier passage)
 								// System.out.println(v_connu.id);
 							} else { // Sinon
 								if (ht.get(v_connu).longueur > ((Route) a).longueur) { 
-									// Si la longueur de la nouvelle route est inférieur à celle pré-enregistrée
-									ht.put(v_connu, (Route) a); // remplacement
-																// de l'ancienne
-																// route par la
-																// nouvelle
-									// System.out.println(v_connu.id);
+									// Si la longueur de la nouvelle route est infï¿½rieur ï¿½ celle prï¿½-enregistrï¿½e
+									ht.put(v_connu, (Route) a); // remplacement de l'ancienne route par la nouvelle
 								}
 							}
 						}
@@ -240,7 +230,6 @@ public class VDC extends Graphe {
 				int index = H.indexOf(route_max.source);
 				H.addVille(index, (Ville) route_max.dest);
 			}
-			// TODO vÃ©rifier que l'insertion n'ecrase pas ds la liste H
 		}
 		// retour au premier element
 		H.addVille(H.get(0));

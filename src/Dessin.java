@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
@@ -31,6 +32,13 @@ public class Dessin extends JComponent{
 		formeEnCours = null;
 		
 		addMouseListener(new MouseAdapter() {
+			public void mouseMoved(MouseEvent e){
+				for(Shape s : listeEllipse){
+					if (s.contains(e.getX(),e.getY())){
+						System.out.println("t'es dedans !");
+					}
+				}
+			}
 			public void mousePressed(MouseEvent e) {
 				x = e.getX();
 				y = e.getY();
@@ -43,12 +51,16 @@ public class Dessin extends JComponent{
 						break;
 					}
 				}
-				//sinon, surligne la zone cliquée
 				if (formeEnCours==null){
+					//sinon, surligne la zone cliquée
 					formeEnCours = new Ellipse2D.Double(x-(tailleVille/2.0),y-(tailleVille/2.0),tailleVille,tailleVille);
 				}
 				repaint();
 			}
+		});
+		
+		addMouseMotionListener(new MouseMotionAdapter() {
+			
 		});
 		
 	}

@@ -1,4 +1,5 @@
 import java.awt.Rectangle;
+import java.awt.Shape;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -75,25 +76,28 @@ public class Interface extends javax.swing.JFrame {
 		mEditer = new javax.swing.JMenu();
 		miReinitialiser = new javax.swing.JMenuItem();
 		this.vdc = vdc;
+		selectVille = null;
 		contextMenu = new JPopupMenu();
 
 		// ==========================================================================================================================================================================
 		// Modification code netbeans
 		pDessin.addMouseMotionListener(new MouseAdapter() {
 			public void mouseMoved(MouseEvent e) {
-				// Creation de la chaine de caractËre
+				// Creation de la chaine de caract√®re
 				StringBuffer chaine = new StringBuffer();
 				chaine.append("X :");
 				chaine.append(e.getX());
 				chaine.append(" | ");
 				chaine.append("Y :");
-				chaine.append(e.getY());
+				chaine.append(e.getX());
 				lCoordonees.setText(chaine.toString());
 			}
 		});
-		// Focus sur le champ de ville quand on clique sur le panneau de dessin
+
 		pDessin.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				// Focus sur le champ de ville quand on clique sur le panneau de
+				// dessin
 				tfVille.requestFocus();
 				StringBuffer chaine = new StringBuffer();
 				chaine.append("X :");
@@ -102,6 +106,18 @@ public class Interface extends javax.swing.JFrame {
 				chaine.append("Y :");
 				chaine.append(e.getY());
 				lCoordonneeVille.setText(chaine.toString());
+				if (SwingUtilities.isRightMouseButton(e)) {
+					selectVille = pDessin.getVilleEnCours();
+					if (selectVille!=null) {
+						contextMenu.setLocation(e.getXOnScreen(),
+								e.getYOnScreen());
+						contextMenu.setEnabled(true);
+						contextMenu.setVisible(true);
+					}
+				} else {
+					contextMenu.setEnabled(false);
+					contextMenu.setVisible(false);
+				}
 			}
 		});
 
@@ -109,16 +125,6 @@ public class Interface extends javax.swing.JFrame {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				tfVilleActionPerformed(evt);
 				refreshJlist();
-			}
-		});
-
-		listVilleAlgo.addListSelectionListener(new ListSelectionListener() {
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				// Permet d'eviter d'avoir un double evenement
-				if (!e.getValueIsAdjusting()) {
-					System.out.println("clic gauche");
-				}
 			}
 		});
 
@@ -131,20 +137,22 @@ public class Interface extends javax.swing.JFrame {
 		contextMenu.add(suppr);
 		listVilleAlgo.add(contextMenu);
 
-		contextMenu.addPopupMenuListener(null);
+		//contextMenu.addPopupMenuListener(null);
 
 		listVilleAlgo.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if (SwingUtilities.isRightMouseButton(e)) {
-					listVilleAlgo.setSelectedIndex(listVilleAlgo.locationToIndex(e.getPoint()));
+					listVilleAlgo.setSelectedIndex(listVilleAlgo
+							.locationToIndex(e.getPoint()));
 					int row = listVilleAlgo.getSelectedIndex();
 					if (listVilleAlgo.getModel().getElementAt(row) instanceof Ville) {
-						System.out.println(row);
-						 if(row>=0){
-							 contextMenu.setLocation(e.getXOnScreen(),e.getYOnScreen());
-							 contextMenu.setEnabled(true);
-							 contextMenu.setVisible(true); 
-						 }
+						if (row >= 0) {
+							selectVille = (Ville) listVilleAlgo.getModel().getElementAt(row);
+							contextMenu.setLocation(e.getXOnScreen(),
+									e.getYOnScreen());
+							contextMenu.setEnabled(true);
+							contextMenu.setVisible(true);
+						}
 					}
 				} else {
 					contextMenu.setEnabled(false);
@@ -155,9 +163,6 @@ public class Interface extends javax.swing.JFrame {
 
 		// ==========================================================================================================================================================================
 
-		
-		
-		
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setFocusCycleRoot(false);
 		setFocusTraversalPolicyProvider(true);
@@ -278,15 +283,12 @@ public class Interface extends javax.swing.JFrame {
 		cbChoixAlgo.setModel(new javax.swing.DefaultComboBoxModel(new String[] {
 				"Plus Proche Voisin", "Insertion Du Plus Eloigne", "Two Opt",
 				"Vider" }));
-		
-		
-		
-		
-		cbChoixAlgo.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				cbChoixAlgoActionPerformed(evt);
-			}
-		});
+
+//		cbChoixAlgo.addActionListener(new java.awt.event.ActionListener() {
+//			public void actionPerformed(java.awt.event.ActionEvent evt) {
+//				cbChoixAlgoActionPerformed(evt);
+//			}
+//		});
 
 		bExecuter.setText("Ex√©cuter");
 		bExecuter.addActionListener(new java.awt.event.ActionListener() {
@@ -371,12 +373,13 @@ public class Interface extends javax.swing.JFrame {
 
 		mFichier.setText("Fichier");
 
-		miGrapheAleatoire.setText("CrÈer un graphe alÈatoire");
-		miGrapheAleatoire.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				miGrapheAleatoireActionPerformed(evt);
-			}
-		});
+		miGrapheAleatoire.setText("Cr√©er un graphe al√©atoire");
+		miGrapheAleatoire
+				.addActionListener(new java.awt.event.ActionListener() {
+					public void actionPerformed(java.awt.event.ActionEvent evt) {
+						miGrapheAleatoireActionPerformed(evt);
+					}
+				});
 		mFichier.add(miGrapheAleatoire);
 
 		miQuitter.setText("Quitter");
@@ -404,16 +407,15 @@ public class Interface extends javax.swing.JFrame {
 		setJMenuBar(jMenuBar1);
 
 		pack();
-	}// </editor-fold>//GEN-END:initComponents
+	}
 
-	private void cbChoixAlgoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cbChoixAlgoActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_cbChoixAlgoActionPerformed
+//	private void cbChoixAlgoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cbChoixAlgoActionPerformed
+//		// TODO add your handling code here:
+//	}// GEN-LAST:event_cbChoixAlgoActionPerformed
 
-	private void bExecuterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_bExecuterActionPerformed
+	private void bExecuterActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO Modifier ca pour plusieurs solutions
 		// On vide les solutions propos√©es
-
 		vdc.listeSolution.clear();
 		// on switch sur le choix et on lance l'algo
 		String algo = cbChoixAlgo.getSelectedItem().toString();
@@ -434,7 +436,7 @@ public class Interface extends javax.swing.JFrame {
 		pDessin.Refresh(vdc);
 		refreshJlist();
 
-	}// GEN-LAST:event_bExecuterActionPerformed
+	}
 
 	private void tfVilleActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_tfVilleActionPerformed
 		String text = tfVille.getText();
@@ -448,15 +450,14 @@ public class Interface extends javax.swing.JFrame {
 			tfVille.setText("");
 
 		} else {
-			System.out.println(text);
 			tfVille.setText("");
 		}
 
-	}// GEN-LAST:event_tfVilleActionPerformed
+	}
 
-	private void miQuitterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_miQuitterActionPerformed
+	private void miQuitterActionPerformed(java.awt.event.ActionEvent evt) {
 		System.exit(0);
-	}// GEN-LAST:event_miQuitterActionPerformed
+	}
 
 	private void miReinitialiserActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_miReinitialiserActionPerformed
 		// TODO add your handling code here:
@@ -474,9 +475,7 @@ public class Interface extends javax.swing.JFrame {
 
 	ActionListener contextMenuSuppr = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			int row = listVilleAlgo.getSelectedIndex();
-			Ville v=(Ville)listVilleAlgo.getModel().getElementAt(row);
-			vdc.supprimerNoeud(v);
+			vdc.supprimerNoeud(selectVille);
 			vdc.listeSolution.clear();
 			pDessin.Refresh(vdc);
 			refreshJlist();
@@ -484,16 +483,15 @@ public class Interface extends javax.swing.JFrame {
 			contextMenu.setVisible(false);
 		}
 	};
-	
+
 	ActionListener contextMenuModif = new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			int row = listVilleAlgo.getSelectedIndex();
-			Ville v=(Ville)listVilleAlgo.getModel().getElementAt(row);
-			String inputValue = JOptionPane.showInputDialog("Donnez le nouveau nom :",v.nom);
-			if(inputValue!=null){
-				v.setNom(inputValue);
+			String inputValue = JOptionPane.showInputDialog(
+					"Donnez le nouveau nom :", selectVille.nom);
+			if (inputValue != null) {
+				selectVille.setNom(inputValue);
 			}
-			//pDessin.Refresh(vdc);
+			// pDessin.Refresh(vdc);
 			refreshJlist();
 			contextMenu.setEnabled(false);
 			contextMenu.setVisible(false);
@@ -505,7 +503,6 @@ public class Interface extends javax.swing.JFrame {
 		// DefaultListModel model=new DefaultListModel();
 		// String[] list=new String[vdc.liste_noeud.size()];
 		listVilleAlgoModel.clear();
-		JSeparator j = new JSeparator();
 		for (Chemin c : vdc.listeSolution) {
 			listVilleAlgoModel.addElement(c);
 		}
@@ -520,37 +517,34 @@ public class Interface extends javax.swing.JFrame {
 	}
 
 	private void miGrapheAleatoireActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cbChoixAlgoActionPerformed
-		String inputValue = JOptionPane.showInputDialog("Donner le nombre de ville a gÈnÈrer :");
-		boolean valeur = true; 
-		char[] tab = inputValue.toCharArray(); 
-		for(char carac : tab){ 
-			if(!Character.isDigit(carac)){ 
-				valeur=false; 
+		String inputValue = JOptionPane
+				.showInputDialog("Donner le nombre de ville a g√©n√©rer :");
+		boolean valeur = true;
+		char[] tab = inputValue.toCharArray();
+		for (char carac : tab) {
+			if (!Character.isDigit(carac)) {
+				valeur = false;
 			}
 		}
-		if(valeur){
+		if (valeur) {
 			int limit = Integer.parseInt(inputValue);
 			vdc.listeSolution.clear();
 			vdc.liste_noeud.clear();
-			double limitX=pDessin.getSize().getWidth();
-			int X=(int)limitX;
-			double limitY=pDessin.getSize().getHeight();
-			int Y=(int)limitY;
-			vdc = new VDC(limit,X,Y);
+			double limitX = pDessin.getSize().getWidth();
+			int X = (int) limitX;
+			double limitY = pDessin.getSize().getHeight();
+			int Y = (int) limitY;
+			vdc = new VDC(limit, X, Y);
 			pDessin.Refresh(vdc);
 			refreshJlist();
-		}
-		else{
-			JOptionPane.showMessageDialog(pDessin, "Vous devez renseigner un integer", "Attention", JOptionPane.ERROR_MESSAGE);
+		} else {
+			JOptionPane.showMessageDialog(pDessin,
+					"Vous devez renseigner un integer", "Attention",
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
-	
-	/**
-	 * @param args
-	 *            the command line arguments
-	 */
 
-	// Variables declaration - do not modify//GEN-BEGIN:variables
+	//compo graphique
 	private javax.swing.JButton bExecuter;
 	private javax.swing.JComboBox cbChoixAlgo;
 	private javax.swing.JMenuBar jMenuBar1;
@@ -571,9 +565,10 @@ public class Interface extends javax.swing.JFrame {
 	private javax.swing.JPanel pModifVille;
 	private javax.swing.JPanel pTabVille;
 	private javax.swing.JTextField tfVille;
-	private VDC vdc;
 	private DefaultListModel listVilleAlgoModel;
 	private JPopupMenu contextMenu;
+	
+	private Ville selectVille;
+	private VDC vdc;
 
-	// End of variables declaration//GEN-END:variables
 }
