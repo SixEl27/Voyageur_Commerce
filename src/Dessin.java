@@ -77,7 +77,6 @@ public class Dessin extends JComponent{
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		g2.setColor(Color.BLUE);
-		System.out.println("");
 		for(int i=0;i<listeLigne.size();i++){
 			g2.setColor(Color.WHITE);
 			g2.draw(listeLigne.get(i));
