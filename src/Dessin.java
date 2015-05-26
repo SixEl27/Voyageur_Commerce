@@ -9,7 +9,6 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import javax.swing.JComponent;
 
 
@@ -32,13 +31,6 @@ public class Dessin extends JComponent{
 		formeEnCours = null;
 		
 		addMouseListener(new MouseAdapter() {
-			public void mouseMoved(MouseEvent e){
-				for(Shape s : listeEllipse){
-					if (s.contains(e.getX(),e.getY())){
-						System.out.println("t'es dedans !");
-					}
-				}
-			}
 			public void mousePressed(MouseEvent e) {
 				x = e.getX();
 				y = e.getY();
@@ -59,8 +51,15 @@ public class Dessin extends JComponent{
 			}
 		});
 		
+		//Nom des villes au survol
 		addMouseMotionListener(new MouseMotionAdapter() {
-			
+			public void mouseMoved(MouseEvent e){
+				for(Shape s : listeEllipse){
+					if (s.contains(e.getX(),e.getY())){
+						setToolTipText(lienEllipseVille.get(s).nom);
+					}
+				}
+			}
 		});
 		
 	}
