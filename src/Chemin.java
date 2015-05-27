@@ -3,12 +3,14 @@ import java.util.ArrayList;
 
 public class Chemin extends ArrayList<Ville> {
 	double longueur;
+	long tempsCalcul;
 	String commentaire;
 
 	/** CONSTRUCTEURS */
 	Chemin(String commentaire) {
 		super();
 		this.longueur = 0;
+		this.tempsCalcul =0;
 		this.commentaire = commentaire;
 	}
 
@@ -21,8 +23,13 @@ public class Chemin extends ArrayList<Ville> {
 		sb.append(commentaire);
 		sb.append(" ");
 		// ajout de la longueur
-		sb.append("longueur : ");
+		sb.append("lng : ");
 		sb.append(df.format(longueur));
+		sb.append(" ");
+		//ajout temps de calcul
+		sb.append("tps : ");
+		sb.append(tempsCalcul);
+		sb.append("ms");
 		return sb.toString();
 	}
 
@@ -71,9 +78,13 @@ public class Chemin extends ArrayList<Ville> {
 			}
 						
 		} else {
-		// insertion de l'element
+		// insertion du tout premier element
 		this.add(v);
 		}
+	}
+	
+	public void setTempsCalcul(long tmp){
+		this.tempsCalcul=tmp;
 	}
 
 }

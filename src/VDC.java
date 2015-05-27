@@ -90,10 +90,13 @@ public class VDC extends Graphe {
 	public void plusProcheVoisin(Ville v) {
 		// Méthode pour lancer l'algorithme recursif du plus proche voisin
 		// nom de l'algo + son départ
-		Chemin H = new Chemin("[plusProcheVoisin - " + v.nom + "]");
+		long startTime = System.currentTimeMillis();
+		Chemin H = new Chemin("[PPV - " + v.nom + "]");
 		H = plusProcheVoisin(v, H);
 		// Ajout du retour vers la ville de départ
 		H.addVille(v);
+		long estimatedTime = System.currentTimeMillis() - startTime;
+		H.setTempsCalcul(estimatedTime);
 		listeSolution.add(H);
 	}
 
@@ -115,8 +118,9 @@ public class VDC extends Graphe {
 	}
 
 	public void two_opt() {
+		long startTime = System.currentTimeMillis();
 		// ArrayList<Ville> H= new ArrayList(this.liste_noeud);
-		Chemin H = new Chemin("[2opt]");
+		Chemin H = new Chemin("[2OPT]");
 		for (int j = 0; j < this.liste_noeud.size(); j++) {
 			H.addVille((Ville) this.liste_noeud.get(j));
 		}
@@ -191,18 +195,20 @@ public class VDC extends Graphe {
 				}
 			}
 		}
-		// System.out.println(H.size()+" "+this.liste_noeud.size()+"    v");
 		H.addVille(H.get(0));
+		long estimatedTime = System.currentTimeMillis() - startTime;
+		H.setTempsCalcul(estimatedTime);
 		listeSolution.add(H);
 	}
 
 	public void insertionVoisinLePlusEloigne() {
+		long startTime = System.currentTimeMillis();
 		VDC VDC_copie = new VDC(this);
 		System.out.println(VDC_copie);// vide
 		// VDC_copie.clone(this);
 		// TODO Ne pas modifier le vrai model
 		// TODO implementer cloneable partout, ca va etre marrant !
-		Chemin H = new Chemin("[insertionVoisinLePlusEloigne]");
+		Chemin H = new Chemin("[IVPE]");
 		ArrayList<Route> Liste_R_tot = new ArrayList<Route>();
 		ArrayList<Ville> liste_v = (ArrayList<Ville>) (ArrayList<?>) VDC_copie.liste_noeud; // Toute
 																							// les
@@ -280,7 +286,10 @@ public class VDC extends Graphe {
 		}
 		// retour au premier element
 		H.addVille(H.get(0));
+		long estimatedTime = System.currentTimeMillis() - startTime;
+		H.setTempsCalcul(estimatedTime);
 		listeSolution.add(H);
+		
 	};
 
 	public String toString() {
