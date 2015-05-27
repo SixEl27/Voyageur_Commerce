@@ -16,25 +16,27 @@ public class VDC extends Graphe {
 		listeSolution = new ArrayList<Chemin>();
 	}
 
-	public VDC(int nb_noeud, int limitex, int limitey) {
+	
+	public VDC(int nbNoeud, int limiteX, int limiteY) {
 		// Aleatoire
-		super("VDC aleatoire - " + nb_noeud + "noeuds");
-		for (int i = 0; i < nb_noeud; i++) {
+		super("VDC_aleatoire_" + nbNoeud + "noeuds");
+		for (int i = 0; i < nbNoeud; i++) {
 			this.ajouterVille(new Ville(
-					GenerationAleatoire.genererInt(limitex),
-					GenerationAleatoire.genererInt(limitey),
-					GenerationAleatoire.genererString("azertyuiopqsdfghjklmwxcvbn", 6)));
+					GenerationAleatoire.genererInt(limiteX),
+					GenerationAleatoire.genererInt(limiteY),
+					GenerationAleatoire.genererString(
+							"azertyuiopqsdfghjklmwxcvbn", 6)));
 		}
 		listeSolution = new ArrayList<Chemin>();
 	}
-	
-	public VDC(VDC VDC1){
-		super(VDC1.nom+"_copie");
-		for(Noeud n : VDC1.liste_noeud){
-			Ville v=new Ville((Ville)n);
+
+	public VDC(VDC VDC1) {
+		super(VDC1.nom + "_copie");
+		for (Noeud n : VDC1.liste_noeud) {
+			Ville v = new Ville((Ville) n);
 			this.ajouterVille(v);
 		}
-		this.listeSolution= new ArrayList<Chemin>();
+		this.listeSolution = new ArrayList<Chemin>();
 	}
 
 	/** METHODES */
@@ -53,6 +55,35 @@ public class VDC extends Graphe {
 				source.liste_arc.add(sens);
 				((Ville) destination).liste_arc.add(antisens);
 			}
+		}
+	}
+
+	public CSV vdc_to_CSV() {
+		CSV csv = new CSV(nom + ".csv");
+		for (Noeud n : liste_noeud) {
+			Ville v = (Ville) n;
+			csv.ajoutElement(v.nom);
+			csv.ajoutElement(v.x);
+			csv.ajoutElement(v.y);
+			csv.finElement();
+		}
+		return csv;
+	}
+
+	public void csv_to_VDC(CSV csv) {
+		ArrayList<ArrayList<String>> data = csv.getData();
+		try {
+			for (ArrayList<String> al : data) {
+				// On cherche 3 element par liste
+				String nom = al.get(0);
+				Double x = Double.parseDouble(al.get(1));
+				Double y = Double.parseDouble(al.get(2));
+				// on ajoute la ville au VDC
+				this.ajouterVille(new Ville(x, y, nom));
+			}
+		} catch (Exception e) {
+			// TODO Lancer exception correcte pour etre capté par l'interface
+			System.out.println("Erreur lecture du VDC");
 		}
 	}
 
@@ -167,26 +198,31 @@ public class VDC extends Graphe {
 
 	public void insertionVoisinLePlusEloigne() {
 		VDC VDC_copie = new VDC(this);
-		System.out.println(VDC_copie);//vide
+		System.out.println(VDC_copie);// vide
 		// VDC_copie.clone(this);
 		// TODO Ne pas modifier le vrai model
 		// TODO implementer cloneable partout, ca va etre marrant !
 		Chemin H = new Chemin("[insertionVoisinLePlusEloigne]");
 		ArrayList<Route> Liste_R_tot = new ArrayList<Route>();
-		ArrayList<Ville> liste_v = (ArrayList<Ville>) (ArrayList<?>) VDC_copie.liste_noeud; // Toute les villes du graphe
+		ArrayList<Ville> liste_v = (ArrayList<Ville>) (ArrayList<?>) VDC_copie.liste_noeud; // Toute
+																							// les
+																							// villes
+																							// du
+																							// graphe
 		for (Ville v : liste_v) {
 			ArrayList<Route> Liste_R = (ArrayList<Route>) (ArrayList<?>) v.liste_arc;
 			Liste_R_tot.addAll(Liste_R);
 		}
 		Collections.sort(Liste_R_tot, Route.DISTANCE_COMPARATOR);
-		Route r = Liste_R_tot.get(Liste_R_tot.size()-1);
+		Route r = Liste_R_tot.get(Liste_R_tot.size() - 1);
 		H.addVille((Ville) r.source);
 		H.addVille((Ville) r.dest);
 		liste_v.remove((Ville) r.source);
 		liste_v.remove((Ville) r.dest);
 		r = null;
-		while (!VDC_copie.liste_noeud.isEmpty()) { // Tant que le circuit n’est pas
-												// complet-1
+		while (!VDC_copie.liste_noeud.isEmpty()) { // Tant que le circuit n’est
+													// pas
+													// complet-1
 			Route route_max = null;
 			Hashtable<Ville, Route> ht = new Hashtable<Ville, Route>(); // hashtable
 																		// clé=ville_connu,
@@ -198,16 +234,27 @@ public class VDC extends Graphe {
 			// //reduit petit a petit sans savoir pk
 			for (Ville v_connu : H) { // Pour toutes les villes déjà dans le
 										// circuit
-				for (Ville v_inconnu : liste_v) { // Pour toutes les villes à// visiter
-					for (Arc a : v_connu.liste_arc) { // Pour chaque route dont la ville connu est source
-						if (a.dest.id == v_inconnu.id) { // Si la destination est une ville inconnu
-							if (ht.get(v_connu) == null) { // Si la table de hashage est vide
-								ht.put(v_connu, (Route) a); // Ajout (premier passage)
+				for (Ville v_inconnu : liste_v) { // Pour toutes les villes à//
+													// visiter
+					for (Arc a : v_connu.liste_arc) { // Pour chaque route dont
+														// la ville connu est
+														// source
+						if (a.dest.id == v_inconnu.id) { // Si la destination
+															// est une ville
+															// inconnu
+							if (ht.get(v_connu) == null) { // Si la table de
+															// hashage est vide
+								ht.put(v_connu, (Route) a); // Ajout (premier
+															// passage)
 								// System.out.println(v_connu.id);
 							} else { // Sinon
-								if (ht.get(v_connu).longueur > ((Route) a).longueur) { 
-									// Si la longueur de la nouvelle route est inf�rieur � celle pr�-enregistr�e
-									ht.put(v_connu, (Route) a); // remplacement de l'ancienne route par la nouvelle
+								if (ht.get(v_connu).longueur > ((Route) a).longueur) {
+									// Si la longueur de la nouvelle route est
+									// inf�rieur � celle pr�-enregistr�e
+									ht.put(v_connu, (Route) a); // remplacement
+																// de l'ancienne
+																// route par la
+																// nouvelle
 								}
 							}
 						}
