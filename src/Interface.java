@@ -99,13 +99,7 @@ public class Interface extends javax.swing.JFrame {
 				// Focus sur le champ de ville quand on clique sur le panneau de
 				// dessin
 				tfVille.requestFocus();
-				StringBuffer chaine = new StringBuffer();
-				chaine.append("X :");
-				chaine.append(e.getX());
-				chaine.append(" | ");
-				chaine.append("Y :");
-				chaine.append(e.getY());
-				lCoordonneeVille.setText(chaine.toString());
+				lCoordonneeVille.setText(lCoordonees.getText());
 				if (SwingUtilities.isRightMouseButton(e)) {
 					selectVille = pDessin.getVilleEnCours();
 					if (selectVille!=null) {
@@ -420,7 +414,7 @@ public class Interface extends javax.swing.JFrame {
 		// on switch sur le choix et on lance l'algo
 		String algo = cbChoixAlgo.getSelectedItem().toString();
 		switch (algo) {
-		case "Plus Proche Voisin":
+		case "Plus Proche Voisin": 
 			vdc.plusProcheVoisin((Ville) vdc.liste_noeud.get(1));
 			break;
 		case "Insertion Du Plus Eloigne":
