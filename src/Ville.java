@@ -25,12 +25,19 @@ public class Ville extends Noeud {
 
 	public Ville() {
 		super();
-
 	}
 
 	/** METHODES */
 	public void setNom(String nom) {
 		this.nom = nom;
+	}
+	
+	public void setX(Double x) {
+		this.x = x;
+	}
+	
+	public void setY(Double y) {
+		this.y = y;
 	}
 
 	public double calculDistanceEuc(Ville dest) {
