@@ -18,7 +18,8 @@ public class DessinVille extends JComponent{
 	double tailleVille=10;
 	ArrayList<Shape> listeEllipse;
 	ArrayList<Shape> listeLigne;
-	ArrayList<Shape> listeChemin;
+	ArrayList<ArrayList<Shape>> listeChemin;
+	ArrayList<Color> listeCouleurChemin;
 	HashMap<Shape, Ville> lienEllipseVille;
 	Shape formeEnCours;
 	
@@ -26,7 +27,8 @@ public class DessinVille extends JComponent{
 		super();
 		listeEllipse =  new ArrayList<Shape>();
 		listeLigne =  new ArrayList<Shape>();
-		listeChemin =  new ArrayList<Shape>();
+		listeChemin =  new ArrayList<ArrayList<Shape>>();
+		listeCouleurChemin= new ArrayList<Color>();
 		lienEllipseVille = new HashMap<Shape, Ville>();
 		formeEnCours = null;
 		
@@ -83,7 +85,7 @@ public class DessinVille extends JComponent{
 	public Ville getVilleEnCours(){
 		return lienEllipseVille.get(formeEnCours);
 	}
-
+	
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
@@ -92,15 +94,20 @@ public class DessinVille extends JComponent{
 			g2.setColor(Color.WHITE);
 			g2.draw(listeLigne.get(i));
 		}
+		//pour chaque chemin
 		for(int i=0;i<listeChemin.size();i++){
-			g2.setColor(Color.GREEN);
-			g2.draw(listeChemin.get(i));
+			//on fixe sa couleur
+			g2.setColor(listeCouleurChemin.get(i));
+			//on dessine chaque arc le composant
+			for(Shape arc :listeChemin.get(i)){
+				g2.draw(arc);
+			}
 		}
 		for(int i=0;i<listeEllipse.size();i++){
-			g2.setColor(Color.BLUE);
+			g2.setColor(Color.GRAY);
 			g2.fill(listeEllipse.get(i));
 		}
-		g2.setColor(Color.RED);
+		g2.setColor(Color.BLACK);
 		if(formeEnCours!=null)
 			g2.draw(formeEnCours);
 
@@ -110,6 +117,7 @@ public class DessinVille extends JComponent{
 		listeEllipse.clear();
 		listeLigne.clear();
 		listeChemin.clear();
+		listeCouleurChemin.clear();
 		Shape formeVille;
 		formeVille=null;
 		//on ajoute tout les noeuds
@@ -129,17 +137,38 @@ public class DessinVille extends JComponent{
 				listeLigne.add(new Line2D.Double(debx, deby,finx,finy));
 			}
 		}
+		
 		//on dessine chaque chemin
-		for(Chemin c : vdc.listeSolution){
+		//on decale a chaque fois d'un pixel
+		double decal=0;
+		for(int j=0;j<vdc.listeSolution.size();j++){
+			//on genere une couleur que l'on ajoute a liste, la rendant la plus différente possible des autres
+			listeCouleurChemin.add(new Color(Color.HSBtoRGB((float)j/(float)vdc.listeSolution.size(), 1.0f, 1.0f)));
+			//on prend le noeud et le noeud suivant
+			//on creer une liste de forme pour les arcs d'un chemin
+			Chemin c=vdc.listeSolution.get(j);
+			ArrayList<Shape> listeArc = new ArrayList<Shape>();
 			for(int i=0; i<c.size()-1;i++){
-				double debx=c.get(i).x;
-				double deby=c.get(i).y;
-				double finx=c.get(i+1).x;
-				double finy=c.get(i+1).y;
-				listeChemin.add(new Line2D.Double(debx, deby,finx,finy));
+				double debx=c.get(i).x+decal;
+				double deby=c.get(i).y+decal;
+				double finx=c.get(i+1).x+decal;
+				double finy=c.get(i+1).y+decal;
+				listeArc.add(new Line2D.Double(debx, deby,finx,finy));
+			}
+			//on ajoute cette liste a la liste de forme de chemin
+			listeChemin.add(listeArc);
+			//on décale en haut a droite de 1.5 pixel
+			if(j % 2 == 0){
+				decal=Math.abs(decal);
+				decal=decal+1.5;
+			//sinon on imprime en miroir en bas a gauche
+			} else {
+				decal*=-1;
 			}
 		}
 		this.repaint();
+		
+		
 		
 	}
 }

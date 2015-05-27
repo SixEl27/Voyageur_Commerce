@@ -44,6 +44,12 @@ public class CSV {
 		bfr.close();
 	}
 
+	public void imprimeCSV() throws FileNotFoundException, UnsupportedEncodingException{
+		PrintWriter writer = new PrintWriter(nomFichier, "UTF-8");
+		writer.print(this);
+		writer.close();
+	}
+	
 	public void ajoutLigne(ArrayList<String> ligne) {
 		data.add(ligne);
 	}
@@ -55,12 +61,6 @@ public class CSV {
 	public void finElement(){
 		ajoutLigne(ligneEnCours);
 		ligneEnCours = new ArrayList<String>();
-	}
-	
-	public void imprimeCSV() throws FileNotFoundException, UnsupportedEncodingException{
-		PrintWriter writer = new PrintWriter(nomFichier, "UTF-8");
-		writer.print(this);
-		writer.close();
 	}
 
 	public ArrayList<ArrayList<String>> getData(){
