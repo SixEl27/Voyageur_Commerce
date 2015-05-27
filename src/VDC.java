@@ -16,7 +16,6 @@ public class VDC extends Graphe {
 		listeSolution = new ArrayList<Chemin>();
 	}
 
-	
 	public VDC(int nbNoeud, int limiteX, int limiteY) {
 		// Aleatoire
 		super("VDC_aleatoire_" + nbNoeud + "noeuds");
@@ -24,8 +23,7 @@ public class VDC extends Graphe {
 			this.ajouterVille(new Ville(
 					GenerationAleatoire.genererInt(limiteX),
 					GenerationAleatoire.genererInt(limiteY),
-					GenerationAleatoire.genererString(
-							"azertyuiopqsdfghjklmwxcvbn", 6)));
+					GenerationAleatoire.genererString("azertyuiopqsdfghjklmwxcvbn", 6)));
 		}
 		listeSolution = new ArrayList<Chemin>();
 	}
@@ -58,8 +56,8 @@ public class VDC extends Graphe {
 		}
 	}
 
-	public CSV vdc_to_CSV() {
-		CSV csv = new CSV(nom + ".csv");
+	public CSV vdc_to_CSV(String nom) {
+		CSV csv = new CSV(nom);
 		for (Noeud n : liste_noeud) {
 			Ville v = (Ville) n;
 			csv.ajoutElement(v.nom);
@@ -72,7 +70,6 @@ public class VDC extends Graphe {
 
 	public void csv_to_VDC(CSV csv) {
 		ArrayList<ArrayList<String>> data = csv.getData();
-		try {
 			for (ArrayList<String> al : data) {
 				// On cherche 3 element par liste
 				String nom = al.get(0);
@@ -81,9 +78,49 @@ public class VDC extends Graphe {
 				// on ajoute la ville au VDC
 				this.ajouterVille(new Ville(x, y, nom));
 			}
-		} catch (Exception e) {
 			// TODO Lancer exception correcte pour etre capté par l'interface
-			System.out.println("Erreur lecture du VDC");
+	}
+
+	public VDC miseAEchelle(int limiteX, int limiteY) {
+		// recherche des max de x et y
+		double maxX = 0;
+		double maxY = 0;
+		for (Noeud n : liste_noeud) {
+			Ville v = (Ville) n;
+			if (maxX < v.x) {
+				maxX = v.x;
+			}
+			if (maxY < v.y) {
+				maxY = v.y;
+			}
+		}
+		// On regarde si il y a besoin d'une mise a l'echelle
+		boolean besoinRemiseEchelleX = (maxX > limiteX);
+		boolean besoinRemiseEchelleY = (maxY > limiteY);
+		
+		// Si non, on arrete la, le VDC n'est pas modifié
+		if (!(besoinRemiseEchelleX) && !(besoinRemiseEchelleY)) {
+			return null;
+		}
+		// si oui, on calcul les facteur pour la remise a l'echelle
+		else {
+			double facteurEchelleX = 1;
+			double facteurEchelleY = 1;
+			VDC modif=new VDC(this.nom+"_mis_a_echelle");
+			// on met a l'echelle pour les deux si besoin
+			if (besoinRemiseEchelleX) {
+				facteurEchelleX = maxX / limiteX;
+			}
+			if (besoinRemiseEchelleY) {
+				facteurEchelleY = maxY / limiteY;
+			}
+			// on divise par le facteur chaque coordonnées de chaque ville
+			for (Noeud n : liste_noeud) {
+				double x=((Ville) n).x / facteurEchelleX;
+				double y=((Ville) n).y / facteurEchelleY;
+				modif.ajouterVille(new Ville(x,y,((Ville) n).nom));
+			}
+			return modif;
 		}
 	}
 
@@ -124,8 +161,6 @@ public class VDC extends Graphe {
 		for (int j = 0; j < this.liste_noeud.size(); j++) {
 			H.addVille((Ville) this.liste_noeud.get(j));
 		}
-
-		// H.addVille((Ville)this.liste_noeud.get(0));
 
 		boolean b = true;
 		if (H.isEmpty()) {
@@ -183,11 +218,11 @@ public class VDC extends Graphe {
 							// Remplacer les arêtes (xi, xi+1) et (xj, xj+1) par
 							// (xi, xj) et (xi+1, xj+1) dans H
 							if (i == H.size() - 1) {
-								H.set(0, vj);
+								H.setVille(0, vj);
 							} else {
-								H.set(i + 1, vj);
+								H.setVille(i + 1, vj);
 							}
-							H.set(j, vi1);
+							H.setVille(j, vi1);
 
 							b = true;
 						}
@@ -204,7 +239,6 @@ public class VDC extends Graphe {
 	public void insertionVoisinLePlusEloigne() {
 		long startTime = System.currentTimeMillis();
 		VDC VDC_copie = new VDC(this);
-		System.out.println(VDC_copie);// vide
 		// VDC_copie.clone(this);
 		// TODO Ne pas modifier le vrai model
 		// TODO implementer cloneable partout, ca va etre marrant !
@@ -289,7 +323,7 @@ public class VDC extends Graphe {
 		long estimatedTime = System.currentTimeMillis() - startTime;
 		H.setTempsCalcul(estimatedTime);
 		listeSolution.add(H);
-		
+
 	};
 
 	public String toString() {

@@ -1,7 +1,9 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
@@ -55,16 +57,10 @@ public class CSV {
 		ligneEnCours = new ArrayList<String>();
 	}
 	
-	public boolean imprimeCSV(){
-		try{
+	public void imprimeCSV() throws FileNotFoundException, UnsupportedEncodingException{
 		PrintWriter writer = new PrintWriter(nomFichier, "UTF-8");
 		writer.print(this);
 		writer.close();
-		return true;
-		} catch(Exception e) {
-			e.printStackTrace();
-			return false;
-		}
 	}
 
 	public ArrayList<ArrayList<String>> getData(){

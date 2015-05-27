@@ -7,10 +7,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -55,7 +57,7 @@ public class Interface extends javax.swing.JFrame {
 	private void initComponents(VDC vdc) {
 
 		pCarte = new javax.swing.JPanel();
-		pDessin = new Dessin();
+		pDessin = new DessinVille();
 		pModifVille = new javax.swing.JPanel();
 		lTitreCoordonnees = new javax.swing.JLabel();
 		lCoordonees = new javax.swing.JLabel();
@@ -73,6 +75,8 @@ public class Interface extends javax.swing.JFrame {
 		mFichier = new javax.swing.JMenu();
 		miGrapheAleatoire = new javax.swing.JMenuItem();
 		miQuitter = new javax.swing.JMenuItem();
+		miCharger = new javax.swing.JMenuItem();
+		miEnregistrer = new javax.swing.JMenuItem();
 		mEditer = new javax.swing.JMenu();
 		miReinitialiser = new javax.swing.JMenuItem();
 		this.vdc = vdc;
@@ -102,7 +106,7 @@ public class Interface extends javax.swing.JFrame {
 				lCoordonneeVille.setText(lCoordonees.getText());
 				if (SwingUtilities.isRightMouseButton(e)) {
 					selectVille = pDessin.getVilleEnCours();
-					if (selectVille!=null) {
+					if (selectVille != null) {
 						contextMenu.setLocation(e.getXOnScreen(),
 								e.getYOnScreen());
 						contextMenu.setEnabled(true);
@@ -131,7 +135,7 @@ public class Interface extends javax.swing.JFrame {
 		contextMenu.add(suppr);
 		listVilleAlgo.add(contextMenu);
 
-		//contextMenu.addPopupMenuListener(null);
+		// contextMenu.addPopupMenuListener(null);
 
 		listVilleAlgo.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -141,7 +145,8 @@ public class Interface extends javax.swing.JFrame {
 					int row = listVilleAlgo.getSelectedIndex();
 					if (listVilleAlgo.getModel().getElementAt(row) instanceof Ville) {
 						if (row >= 0) {
-							selectVille = (Ville) listVilleAlgo.getModel().getElementAt(row);
+							selectVille = (Ville) listVilleAlgo.getModel()
+									.getElementAt(row);
 							contextMenu.setLocation(e.getXOnScreen(),
 									e.getYOnScreen());
 							contextMenu.setEnabled(true);
@@ -278,11 +283,11 @@ public class Interface extends javax.swing.JFrame {
 				"Plus Proche Voisin", "Insertion Du Plus Eloigne", "Two Opt",
 				"Vider" }));
 
-//		cbChoixAlgo.addActionListener(new java.awt.event.ActionListener() {
-//			public void actionPerformed(java.awt.event.ActionEvent evt) {
-//				cbChoixAlgoActionPerformed(evt);
-//			}
-//		});
+		// cbChoixAlgo.addActionListener(new java.awt.event.ActionListener() {
+		// public void actionPerformed(java.awt.event.ActionEvent evt) {
+		// cbChoixAlgoActionPerformed(evt);
+		// }
+		// });
 
 		bExecuter.setText("Exécuter");
 		bExecuter.addActionListener(new java.awt.event.ActionListener() {
@@ -367,6 +372,22 @@ public class Interface extends javax.swing.JFrame {
 
 		mFichier.setText("Fichier");
 
+		miCharger.setText("Charger");
+		miCharger.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				miChargerActionPerformed(evt);
+			}
+		});
+		mFichier.add(miCharger);
+
+		miEnregistrer.setText("Enregistrer");
+		miEnregistrer.addActionListener(new java.awt.event.ActionListener() {
+			public void actionPerformed(java.awt.event.ActionEvent evt) {
+				miEnregistrerActionPerformed(evt);
+			}
+		});
+		mFichier.add(miEnregistrer);
+
 		miGrapheAleatoire.setText("Créer un graphe aléatoire");
 		miGrapheAleatoire
 				.addActionListener(new java.awt.event.ActionListener() {
@@ -374,7 +395,7 @@ public class Interface extends javax.swing.JFrame {
 						miGrapheAleatoireActionPerformed(evt);
 					}
 				});
-		mFichier.add(miGrapheAleatoire);
+		mEditer.add(miGrapheAleatoire);
 
 		miQuitter.setText("Quitter");
 		miQuitter.addActionListener(new java.awt.event.ActionListener() {
@@ -399,13 +420,14 @@ public class Interface extends javax.swing.JFrame {
 		jMenuBar1.add(mEditer);
 
 		setJMenuBar(jMenuBar1);
-
+		setResizable(false);
 		pack();
 	}
 
-//	private void cbChoixAlgoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cbChoixAlgoActionPerformed
-//		// TODO add your handling code here:
-//	}// GEN-LAST:event_cbChoixAlgoActionPerformed
+	// private void cbChoixAlgoActionPerformed(java.awt.event.ActionEvent evt)
+	// {// GEN-FIRST:event_cbChoixAlgoActionPerformed
+	// // TODO add your handling code here:
+	// }// GEN-LAST:event_cbChoixAlgoActionPerformed
 
 	private void bExecuterActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO Modifier ca pour plusieurs solutions
@@ -414,7 +436,7 @@ public class Interface extends javax.swing.JFrame {
 		// on switch sur le choix et on lance l'algo
 		String algo = cbChoixAlgo.getSelectedItem().toString();
 		switch (algo) {
-		case "Plus Proche Voisin": 
+		case "Plus Proche Voisin":
 			vdc.plusProcheVoisin((Ville) vdc.liste_noeud.get(1));
 			break;
 		case "Insertion Du Plus Eloigne":
@@ -447,6 +469,62 @@ public class Interface extends javax.swing.JFrame {
 			tfVille.setText("");
 		}
 
+	}
+
+	private void miEnregistrerActionPerformed(java.awt.event.ActionEvent evt) {
+		//on recupere via le jfc le nom du fichier
+		JFileChooser jfc = new JFileChooser(System.getProperty("user.dir"));
+		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		int retourVal = jfc.showSaveDialog(this);
+		//si on recup un fichier
+		if (retourVal == JFileChooser.APPROVE_OPTION) {
+			File file = jfc.getSelectedFile();
+			String nomFichier = file.getAbsoluteFile().toString();
+			//on crée le CSV au nom du fichier
+			CSV csv = this.vdc.vdc_to_CSV(nomFichier);
+			//on essaye de l'imprimer et on affiche un message d'erreur
+			try {
+				csv.imprimeCSV();
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this,
+						"Erreur lors de l'écriture du fichier", "Notification",
+						JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+
+	private void miChargerActionPerformed(java.awt.event.ActionEvent evt) {
+		//on recupere via le jfc le nom du fichier
+		JFileChooser jfc = new JFileChooser(System.getProperty("user.dir"));
+		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		int retourVal = jfc.showOpenDialog(this);
+		//si on recup un fichier
+		if (retourVal == JFileChooser.APPROVE_OPTION) {
+			File file = jfc.getSelectedFile();
+			String nomFichier = file.getAbsoluteFile().toString();
+			//on crée le CSV et le potentiel nouveau Modele (VDC)
+			CSV csv = new CSV(nomFichier);
+			VDC chargeVDC = new VDC("");
+			//on essaye de le charger
+			try {
+				csv.chargerCSV();
+				chargeVDC.csv_to_VDC(csv);
+				//si le chargement a été possible, on modifie le modèle
+				if (chargeVDC != null) {
+					//on essaye de le mettre a l'échelle si les valeurs sont trop grandes
+					VDC modif=chargeVDC.miseAEchelle(pDessin.getWidth(), pDessin.getHeight());
+					if (modif!=null){
+						chargeVDC=modif;
+					}
+					this.vdc = chargeVDC;
+					pDessin.Refresh(vdc);
+					refreshJlist();
+				}
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(this, "Erreur de chargement",
+						"Notification", JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
 
 	private void miQuitterActionPerformed(java.awt.event.ActionEvent evt) {
@@ -538,7 +616,7 @@ public class Interface extends javax.swing.JFrame {
 		}
 	}
 
-	//compo graphique
+	// compo graphique
 	private javax.swing.JButton bExecuter;
 	private javax.swing.JComboBox cbChoixAlgo;
 	private javax.swing.JMenuBar jMenuBar1;
@@ -551,17 +629,19 @@ public class Interface extends javax.swing.JFrame {
 	private javax.swing.JMenu mEditer;
 	private javax.swing.JMenu mFichier;
 	private javax.swing.JMenuItem miGrapheAleatoire;
+	private javax.swing.JMenuItem miEnregistrer;
+	private javax.swing.JMenuItem miCharger;
 	private javax.swing.JMenuItem miQuitter;
 	private javax.swing.JMenuItem miReinitialiser;
 	private javax.swing.JPanel pAlgo;
 	private javax.swing.JPanel pCarte;
-	private Dessin pDessin;
+	private DessinVille pDessin;
 	private javax.swing.JPanel pModifVille;
 	private javax.swing.JPanel pTabVille;
 	private javax.swing.JTextField tfVille;
 	private DefaultListModel listVilleAlgoModel;
 	private JPopupMenu contextMenu;
-	
+
 	private Ville selectVille;
 	private VDC vdc;
 
