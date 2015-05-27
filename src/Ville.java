@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 
 public class Ville extends Noeud {
 
@@ -50,15 +52,16 @@ public class Ville extends Noeud {
 		return d;
 	}
 	public String toString() {
+		DecimalFormat df = new DecimalFormat("########.00");
 		StringBuffer sb = new StringBuffer();
 		sb.append("Ville : ");
 		sb.append(this.nom);
 		sb.append(", ID : ");
 		sb.append(this.id);
 		sb.append(", x : ");
-		sb.append(this.x);
+		sb.append(df.format(this.x));
 		sb.append(", y : ");
-		sb.append(this.y);
+		sb.append(df.format(this.y));
 		return sb.toString();
 	}
 }
