@@ -1,38 +1,61 @@
 import java.lang.Math;
 import java.util.Comparator;
 
+/**
+ * Classe modelisant une route du probleme du voyageur de commerce
+ * etend d'Arc, en ajoutant une longueur
+ */
 public class Route extends Arc{
 
 	/**
-	 * @param args
+	 * Attributs
+	 * longueur
 	 */
 	double longueur;
 	
-	/**CONSTRUCTEURS*/
+	/**
+	 * constructeur produisant une route a partir de sa source et sa destination
+	 * @param source Ville source
+	 * @param dest Ville destination
+	 */
 	public Route(Ville source, Ville dest){
 		super(source,dest);
 		this.longueur=source.calculDistanceEuc(dest);
 	}
 
-	/**METHODES*/
-
-	
+	/**
+	 * getter de l'ID
+	 * @return ID de la route
+	 */
         public int getId() {
             return this.id;
 	}
- 
+    /**
+     * setter de l'ID
+     * @param id ID de la route
+     */
         public void setId(int id) {
             this.id = id;
 	}
  
+    /**
+     * getter de la ville source
+     * @return ville source
+     */
 	public Ville getSource() {
             return (Ville)this.source;
 	}
- 
+    /**
+     * getter de la ville destination
+     * @return ville destination
+     */
 	public Ville getDestination() {
             return (Ville)this.dest;
 	}
  
+		/**
+		 * Comparateur de route fonctionnant sur la longueur
+		 */
         public static final Comparator<Route> DISTANCE_COMPARATOR = new Comparator<Route>() {
  
             public int compare(Route arg0, Route arg1) {
@@ -48,6 +71,10 @@ public class Route extends Arc{
  
 	};
 
+	/**
+	 * Masquage de tostring
+	 * affiche toutes les infos de l'arc plus la longueur
+	 */
 	public String toString(){
 		StringBuffer sb=new StringBuffer();
 		sb.append("ID Route: ");
