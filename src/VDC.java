@@ -3,11 +3,16 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Random;
 
+/**
+ * Classe modelisant le probleme du voyageur de commerce
+ * etend de graphe, utilise les constructeurs pour implementer les spécificités du problème
+ */
 public class VDC extends Graphe {
 
-	/**
-	 * @param args
-	 */
+/**
+ * Attributs
+ * liste de chemin calculé par les algos
+ */
 	ArrayList<Chemin> listeSolution;
 
 	/** CONSTRUCTEURS */
