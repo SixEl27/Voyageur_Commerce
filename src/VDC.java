@@ -328,7 +328,7 @@ public class VDC extends Graphe {
 			if (route_max != null) {
 				liste_v.remove((Ville) route_max.dest);
 				int index = H.indexOf(route_max.source);
-				H.add(index+1, (Ville) route_max.dest);
+				H.addVille(index+1, (Ville) route_max.dest);
 			}
 			/**
 			for(Ville v : H){
