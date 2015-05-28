@@ -85,11 +85,6 @@ public class Chemin extends ArrayList<Ville> {
 				// insertion avec decalage vers la droite
 				this.add(index, v);
 			}
-			// cas ou l'index est a la derniere position
-			else if (index == this.size() - 1) {
-				// on est dans le cas simple (enfilage)
-				addVille(v);
-			}
 			// cas ou l'index est entre deux ville
 			else {
 				// la ville a l'index actuelle sera la suivante
