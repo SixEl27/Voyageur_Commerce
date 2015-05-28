@@ -1,12 +1,24 @@
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
+/**
+ *Classe etandant d'ArrayList modélisation un chemin de la théorie des graphes
+ */
 public class Chemin extends ArrayList<Ville> {
+	/**
+	 * Attributs
+	 * longueur		la longueur du chemin (somme des distances euclidiennes)
+	 * tempsCalcul	le temps en milliseconde de production par l'algorithme
+	 * commentaire	chaine de caractère, utilisée ici pour stocker le nom d'algo
+	 */
 	double longueur;
 	long tempsCalcul;
 	String commentaire;
 
-	/** CONSTRUCTEURS */
+	/**
+	 * Constructeur
+	 * fixe a 0 les longueurs et temps de calcul
+	 * @param commentaire stocke le commentaire sur le chemin
+	 */
 	Chemin(String commentaire) {
 		super();
 		this.longueur = 0;
@@ -14,9 +26,12 @@ public class Chemin extends ArrayList<Ville> {
 		this.commentaire = commentaire;
 	}
 
-	/** METHODES */
-
+	/**
+	 * Masquage de toString
+	 * n'affiche pas le chemin mais seulement ses attributs
+	 */
 	public String toString() {
+		//formatage pour nombres a deux décimales
 		DecimalFormat df = new DecimalFormat("########.00");
 		StringBuffer sb = new StringBuffer();
 		// ajout du commentaire
@@ -33,6 +48,12 @@ public class Chemin extends ArrayList<Ville> {
 		return sb.toString();
 	}
 
+	/**
+	 * Surcouche pour la méthode add des Arraylist
+	 * permet de mettre a jour en temps reel la longueur
+	 * @param v Ville a ajouter au chemin
+	 * @return indique la reussite ou non de l'action
+	 */
 	public boolean addVille(Ville v) {
 		// calcul distance entre le dernier element de la liste et le nouveau
 		if (!this.isEmpty()) {
@@ -45,6 +66,12 @@ public class Chemin extends ArrayList<Ville> {
 		return (this.add(v));
 	}
 
+	/**
+	 * Surcouche pour la méthode add(index,objet) des Arraylist
+	 * permet de mettre a jour en temps reel la longueur
+	 * @param index index de la liste ou l'on veut placer l'objet
+	 * @param v ville a inserer
+	 */
 	public void addVille(int index, Ville v) {
 		// insert un element a un endroit precis et calcul la nouvelle longueur
 		if (!this.isEmpty()) {
@@ -85,6 +112,13 @@ public class Chemin extends ArrayList<Ville> {
 		}
 	}
 
+	/**
+	 * Surcouche pour la méthode set des Arraylist
+	 * permet de mettre a jour en temps reel la longueur
+	 * @param index index de la liste ou remplacer la ville
+	 * @param v ville qui remplacera celle etant sur l'index
+	 * @return rend l'ancienne ville a la position de l'index ou null
+	 */
 	public Ville setVille(int index, Ville v) {
 		// insert un element a un endroit precis et calcul la nouvelle longueur
 		if (!this.isEmpty()) {
@@ -138,6 +172,10 @@ public class Chemin extends ArrayList<Ville> {
 		}
 	}
 
+	/**
+	 * Setter du temps de calcul, utilisé par les algos
+	 * @param tmp temps de calcul
+	 */
 	public void setTempsCalcul(long tmp) {
 		this.tempsCalcul = tmp;
 	}

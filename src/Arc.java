@@ -1,14 +1,24 @@
+
+/**
+ * Classe modélisant un arc de la théorie des graphes
+ */
 public class Arc {
 
 	/**
-	 * @param args
+	 * Attributs
+	 * source	Le noeud de depart de l'arc
+	 * dest		Le noeud d'arrivée de l'arc
+	 * id 		l'identifiant unique de l'arc (grace au compteur de Graphe)
 	 */
-    //ici
 	Noeud source;
 	Noeud dest;
 	int id;
 	
-	/**CONSTRUCTEURS*/
+	/**
+	 * Constructeur prenant deux noeud pour créer un arc
+	 * @param source Noeud source
+	 * @param dest Noeud de destination
+	 */
 	public Arc(Noeud source, Noeud dest){
 		this.source=source;
 		this.dest=dest;
@@ -16,7 +26,10 @@ public class Arc {
 		Graphe.compteurIdArc=Graphe.compteurIdArc+1;
 	}
 
-	/**METHODES*/
+	/**
+	 * Masquage de toString pour permettre une bonne visualisation de l'arc
+	 * @return String décrivant l'objet
+	 */
 	public String toString(){
 		StringBuffer sb=new StringBuffer();
 		sb.append("Arc : ");
