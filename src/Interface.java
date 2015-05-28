@@ -1,4 +1,3 @@
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -8,7 +7,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import java.io.File;
-
 
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
@@ -40,7 +38,7 @@ public class Interface extends javax.swing.JFrame {
 		initComponents(vdc);
 		pDessin.Refresh(this.vdc);
 	}
-	
+
 	private void initComponents(VDC vdc) {
 
 		pCarte = new javax.swing.JPanel();
@@ -122,23 +120,27 @@ public class Interface extends javax.swing.JFrame {
 
 		// contextMenu.addPopupMenuListener(null);
 
-		//Classe interne pour modifier couleur de la JList
+		// Classe interne pour modifier couleur de la JList
 		class JlistVilleAlgoRenderer extends DefaultListCellRenderer {
-			public Component getListCellRendererComponent( JList list, Object value, int index, boolean isSelected, boolean cellHasFocus ) {
-	            Component c = super.getListCellRendererComponent( list, value, index, isSelected, cellHasFocus );
-	            if ( value instanceof Chemin){
-	            	//int indexDuChemin=Interface.this.vdc.listeSolution.indexOf(value);
-	            	Color couleurDuChemin=Interface.this.pDessin.lienCheminCouleur.get(value);
-	            	c.setBackground(couleurDuChemin);
-	            }
-	            return c;
+			public Component getListCellRendererComponent(JList list,
+					Object value, int index, boolean isSelected,
+					boolean cellHasFocus) {
+				Component c = super.getListCellRendererComponent(list, value,
+						index, isSelected, cellHasFocus);
+				if (value instanceof Chemin) {
+					// int
+					// indexDuChemin=Interface.this.vdc.listeSolution.indexOf(value);
+					Color couleurDuChemin = Interface.this.pDessin.lienCheminCouleur
+							.get(value);
+					c.setBackground(couleurDuChemin);
+				}
+				return c;
 			}
 		}
 		listVilleAlgo.setCellRenderer(new JlistVilleAlgoRenderer());
-		
-//		listVilleAlgo.setCellRenderer(new ListCellRenderer<Object>() {
 
-		
+		// listVilleAlgo.setCellRenderer(new ListCellRenderer<Object>() {
+
 		listVilleAlgo.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				if (SwingUtilities.isRightMouseButton(e)) {
@@ -424,21 +426,35 @@ public class Interface extends javax.swing.JFrame {
 
 	private void bExecuterActionPerformed(java.awt.event.ActionEvent evt) {
 		// on switch sur le choix et on lance l'algo
-		String algo = cbChoixAlgo.getSelectedItem().toString();
-		switch (algo) {
-		case "Plus Proche Voisin":
-			vdc.ajouterSolution(vdc.plusProcheVoisin((Ville) vdc.liste_noeud.get(1)));
-			break;
-		case "Insertion Du Plus Eloigne":
-			vdc.ajouterSolution(vdc.insertionVoisinLePlusEloigne());
-			break;
-		case "Two Opt":
-			vdc.ajouterSolution(vdc.two_opt());
-			break;
-		case "Vider":
-			vdc.listeSolution.clear();
-			break;
-			
+		try {
+			String algo = cbChoixAlgo.getSelectedItem().toString();
+			switch (algo) {
+			case "Plus Proche Voisin":
+				String inputValue = JOptionPane.showInputDialog(
+						"Donnez l'ID du noeud de depart :");
+				try{
+				vdc.ajouterSolution(vdc
+						.plusProcheVoisin((Ville) vdc.recupererNoeud(Integer.parseInt(inputValue))));
+				} catch(Exception e){
+					JOptionPane.showMessageDialog(this,
+							"Erreur de saisie", "Notification",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				break;
+			case "Insertion Du Plus Eloigne":
+				vdc.ajouterSolution(vdc.insertionVoisinLePlusEloigne());
+				break;
+			case "Two Opt":
+				vdc.ajouterSolution(vdc.two_opt());
+				break;
+			case "Vider":
+				vdc.listeSolution.clear();
+				break;
+
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Graphe vide !",
+					"Notification", JOptionPane.ERROR_MESSAGE);
 		}
 		pDessin.Refresh(vdc);
 		refreshJlist();
@@ -463,17 +479,17 @@ public class Interface extends javax.swing.JFrame {
 	}
 
 	private void miEnregistrerActionPerformed(java.awt.event.ActionEvent evt) {
-		//on recupere via le jfc le nom du fichier
+		// on recupere via le jfc le nom du fichier
 		JFileChooser jfc = new JFileChooser(System.getProperty("user.dir"));
 		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		int retourVal = jfc.showSaveDialog(this);
-		//si on recup un fichier
+		// si on recup un fichier
 		if (retourVal == JFileChooser.APPROVE_OPTION) {
 			File file = jfc.getSelectedFile();
 			String nomFichier = file.getAbsoluteFile().toString();
-			//on crée le CSV au nom du fichier
+			// on crée le CSV au nom du fichier
 			CSV csv = this.vdc.vdc_to_CSV(nomFichier);
-			//on essaye de l'imprimer et on affiche un message d'erreur
+			// on essaye de l'imprimer et on affiche un message d'erreur
 			try {
 				csv.imprimeCSV();
 			} catch (Exception e) {
@@ -485,27 +501,29 @@ public class Interface extends javax.swing.JFrame {
 	}
 
 	private void miChargerActionPerformed(java.awt.event.ActionEvent evt) {
-		//on recupere via le jfc le nom du fichier
+		// on recupere via le jfc le nom du fichier
 		JFileChooser jfc = new JFileChooser(System.getProperty("user.dir"));
 		jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		int retourVal = jfc.showOpenDialog(this);
-		//si on recup un fichier
+		// si on recup un fichier
 		if (retourVal == JFileChooser.APPROVE_OPTION) {
 			File file = jfc.getSelectedFile();
 			String nomFichier = file.getAbsoluteFile().toString();
-			//on crée le CSV et le potentiel nouveau Modele (VDC)
+			// on crée le CSV et le potentiel nouveau Modele (VDC)
 			CSV csv = new CSV(nomFichier);
 			VDC chargeVDC = new VDC("");
-			//on essaye de le charger
+			// on essaye de le charger
 			try {
 				csv.chargerCSV();
 				chargeVDC.csv_to_VDC(csv);
-				//si le chargement a été possible, on modifie le modèle
+				// si le chargement a été possible, on modifie le modèle
 				if (chargeVDC != null) {
-					//on essaye de le mettre a l'échelle si les valeurs sont trop grandes
-					VDC modif=chargeVDC.miseAEchelle(pDessin.getWidth(), pDessin.getHeight());
-					if (modif!=null){
-						chargeVDC=modif;
+					// on essaye de le mettre a l'échelle si les valeurs sont
+					// trop grandes
+					VDC modif = chargeVDC.miseAEchelle(pDessin.getWidth(),
+							pDessin.getHeight());
+					if (modif != null) {
+						chargeVDC = modif;
 					}
 					this.vdc = chargeVDC;
 					pDessin.Refresh(vdc);
