@@ -164,6 +164,7 @@ public class VDC extends Graphe {
 		return H;
 	}
 
+	//ceci est une modif
 	public Chemin two_opt() {
 		long startTime = System.currentTimeMillis();
 		// ArrayList<Ville> H= new ArrayList(this.liste_noeud);
