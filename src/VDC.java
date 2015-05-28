@@ -123,8 +123,12 @@ public class VDC extends Graphe {
 			return modif;
 		}
 	}
+	
+	public void ajouterSolution(Chemin c){
+		listeSolution.add(c);
+	}
 
-	public void plusProcheVoisin(Ville v) {
+	public Chemin plusProcheVoisin(Ville v) {
 		// Méthode pour lancer l'algorithme recursif du plus proche voisin
 		// nom de l'algo + son départ
 		long startTime = System.currentTimeMillis();
@@ -134,7 +138,8 @@ public class VDC extends Graphe {
 		H.addVille(v);
 		long estimatedTime = System.currentTimeMillis() - startTime;
 		H.setTempsCalcul(estimatedTime);
-		listeSolution.add(H);
+		//listeSolution.add(H);
+		return H;
 	}
 
 	private Chemin plusProcheVoisin(Ville v, Chemin H) {
@@ -154,13 +159,14 @@ public class VDC extends Graphe {
 		return H;
 	}
 
-	public void two_opt() {
+	public Chemin two_opt() {
 		long startTime = System.currentTimeMillis();
 		// ArrayList<Ville> H= new ArrayList(this.liste_noeud);
-		Chemin H = new Chemin("[2OPT]");
-		for (int j = 0; j < this.liste_noeud.size(); j++) {
-			H.addVille((Ville) this.liste_noeud.get(j));
-		}
+//		for (int j = 0; j < this.liste_noeud.size(); j++) {
+//			H.addVille((Ville) this.liste_noeud.get(j));
+//		}
+		Chemin H=plusProcheVoisin((Ville) this.liste_noeud.get(1));
+		H.commentaire="[2OPT]";
 
 		boolean b = true;
 		if (H.isEmpty()) {
@@ -233,15 +239,13 @@ public class VDC extends Graphe {
 		H.addVille(H.get(0));
 		long estimatedTime = System.currentTimeMillis() - startTime;
 		H.setTempsCalcul(estimatedTime);
-		listeSolution.add(H);
+		//listeSolution.add(H);
+		return H;
 	}
 
-	public void insertionVoisinLePlusEloigne() {
+	public Chemin insertionVoisinLePlusEloigne() {
 		long startTime = System.currentTimeMillis();
 		VDC VDC_copie = new VDC(this);
-		// VDC_copie.clone(this);
-		// TODO Ne pas modifier le vrai model
-		// TODO implementer cloneable partout, ca va etre marrant !
 		Chemin H = new Chemin("[IVPE]");
 		ArrayList<Route> Liste_R_tot = new ArrayList<Route>();
 		ArrayList<Ville> liste_v = (ArrayList<Ville>) (ArrayList<?>) VDC_copie.liste_noeud; // Toute
@@ -322,7 +326,7 @@ public class VDC extends Graphe {
 		H.addVille(H.get(0));
 		long estimatedTime = System.currentTimeMillis() - startTime;
 		H.setTempsCalcul(estimatedTime);
-		listeSolution.add(H);
+		return H;
 
 	};
 

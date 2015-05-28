@@ -44,7 +44,7 @@ public class Interface extends javax.swing.JFrame {
 	private void initComponents(VDC vdc) {
 
 		pCarte = new javax.swing.JPanel();
-		pDessin = new DessinVille();
+		pDessin = new DessinVDC();
 		pModifVille = new javax.swing.JPanel();
 		lTitreCoordonnees = new javax.swing.JLabel();
 		lCoordonees = new javax.swing.JLabel();
@@ -127,8 +127,8 @@ public class Interface extends javax.swing.JFrame {
 			public Component getListCellRendererComponent( JList list, Object value, int index, boolean isSelected, boolean cellHasFocus ) {
 	            Component c = super.getListCellRendererComponent( list, value, index, isSelected, cellHasFocus );
 	            if ( value instanceof Chemin){
-	            	int indexDuChemin=Interface.this.vdc.listeSolution.indexOf(value);
-	            	Color couleurDuChemin=Interface.this.pDessin.listeCouleurChemin.get(indexDuChemin);
+	            	//int indexDuChemin=Interface.this.vdc.listeSolution.indexOf(value);
+	            	Color couleurDuChemin=Interface.this.pDessin.lienCheminCouleur.get(value);
 	            	c.setBackground(couleurDuChemin);
 	            }
 	            return c;
@@ -282,12 +282,6 @@ public class Interface extends javax.swing.JFrame {
 				"Plus Proche Voisin", "Insertion Du Plus Eloigne", "Two Opt",
 				"Vider" }));
 
-		// cbChoixAlgo.addActionListener(new java.awt.event.ActionListener() {
-		// public void actionPerformed(java.awt.event.ActionEvent evt) {
-		// cbChoixAlgoActionPerformed(evt);
-		// }
-		// });
-
 		bExecuter.setText("Exécuter");
 		bExecuter.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -433,13 +427,13 @@ public class Interface extends javax.swing.JFrame {
 		String algo = cbChoixAlgo.getSelectedItem().toString();
 		switch (algo) {
 		case "Plus Proche Voisin":
-			vdc.plusProcheVoisin((Ville) vdc.liste_noeud.get(1));
+			vdc.ajouterSolution(vdc.plusProcheVoisin((Ville) vdc.liste_noeud.get(1)));
 			break;
 		case "Insertion Du Plus Eloigne":
-			vdc.insertionVoisinLePlusEloigne();
+			vdc.ajouterSolution(vdc.insertionVoisinLePlusEloigne());
 			break;
 		case "Two Opt":
-			vdc.two_opt();
+			vdc.ajouterSolution(vdc.two_opt());
 			break;
 		case "Vider":
 			vdc.listeSolution.clear();
@@ -632,7 +626,7 @@ public class Interface extends javax.swing.JFrame {
 	private javax.swing.JMenuItem miReinitialiser;
 	private javax.swing.JPanel pAlgo;
 	private javax.swing.JPanel pCarte;
-	private DessinVille pDessin;
+	private DessinVDC pDessin;
 	private javax.swing.JPanel pModifVille;
 	private javax.swing.JPanel pTabVille;
 	private javax.swing.JTextField tfVille;

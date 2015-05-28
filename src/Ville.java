@@ -56,8 +56,8 @@ public class Ville extends Noeud {
 		StringBuffer sb = new StringBuffer();
 		sb.append("Ville : ");
 		sb.append(this.nom);
-		sb.append(", ID : ");
-		sb.append(this.id);
+//		sb.append(", ID : ");
+//		sb.append(this.id);
 		sb.append(", x : ");
 		sb.append(df.format(this.x));
 		sb.append(", y : ");

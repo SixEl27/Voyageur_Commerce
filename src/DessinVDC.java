@@ -28,10 +28,12 @@ public class DessinVDC extends JComponent{
 	 */
 	int x,y;
 	double tailleVille=10;
+	VDC vdc;
 	ArrayList<Shape> listeEllipse;
 	ArrayList<Shape> listeLigne;
 	ArrayList<ArrayList<Shape>> listeChemin;
-	ArrayList<Color> listeCouleurChemin;
+	//ArrayList<Color> listeCouleurChemin;
+	HashMap<Chemin,Color> lienCheminCouleur;
 	HashMap<Shape, Ville> lienEllipseVille;
 	Shape formeEnCours;
 	
@@ -43,7 +45,8 @@ public class DessinVDC extends JComponent{
 		listeEllipse =  new ArrayList<Shape>();
 		listeLigne =  new ArrayList<Shape>();
 		listeChemin =  new ArrayList<ArrayList<Shape>>();
-		listeCouleurChemin= new ArrayList<Color>();
+		//listeCouleurCheminlienCouleurChemin= new ArrayList<Color>();
+		lienCheminCouleur = new HashMap<Chemin,Color>();
 		lienEllipseVille = new HashMap<Shape, Ville>();
 		formeEnCours = null;
 		
@@ -130,12 +133,19 @@ public class DessinVDC extends JComponent{
 		//pour chaque chemin
 		for(int i=0;i<listeChemin.size();i++){
 			//on fixe sa couleur
-			g2.setColor(listeCouleurChemin.get(i));
+			g2.setColor(lienCheminCouleur.get(vdc.listeSolution.get(i)));
+			//g2.setColor(listeCouleurChemin.get(i));
 			//on dessine chaque arc le composant
 			for(Shape arc :listeChemin.get(i)){
 				g2.draw(arc);
 			}
 		}
+//		for(ArrayList al : listeChemin){
+//			g2.setColor(listeCouleurChemin.get(listeChemin.indexOf(al)));
+//			for(Shape arc :listeChemin.get(listeChemin.indexOf(al))){
+//				g2.draw(arc);
+//			}
+//		}
 		for(int i=0;i<listeEllipse.size();i++){
 			g2.setColor(Color.GRAY);
 			g2.fill(listeEllipse.get(i));
@@ -146,11 +156,13 @@ public class DessinVDC extends JComponent{
 
 	}
 	
-	public void Refresh(VDC vdc){
+	public void Refresh(VDC modele){
+		this.vdc = modele;
 		listeEllipse.clear();
 		listeLigne.clear();
 		listeChemin.clear();
-		listeCouleurChemin.clear();
+		lienCheminCouleur.clear();
+		lienEllipseVille.clear();
 		Shape formeVille;
 		formeVille=null;
 		//on ajoute tout les noeuds
@@ -176,7 +188,8 @@ public class DessinVDC extends JComponent{
 		double decal=0;
 		for(int j=0;j<vdc.listeSolution.size();j++){
 			//on genere une couleur que l'on ajoute a liste, la rendant la plus différente possible des autres
-			listeCouleurChemin.add(new Color(Color.HSBtoRGB((float)j/(float)vdc.listeSolution.size(), 1.0f, 1.0f)));
+			lienCheminCouleur.put(vdc.listeSolution.get(j),
+					new Color(Color.HSBtoRGB((float)j/(float)vdc.listeSolution.size(), 1.0f, 1.0f)));
 			//on prend le noeud et le noeud suivant
 			//on creer une liste de forme pour les arcs d'un chemin
 			Chemin c=vdc.listeSolution.get(j);
