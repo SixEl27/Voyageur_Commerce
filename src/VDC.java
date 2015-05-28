@@ -268,6 +268,8 @@ public class VDC extends Graphe {
 		H.addVille((Ville) r.dest);
 		liste_v.remove((Ville) r.source);
 		liste_v.remove((Ville) r.dest);
+		//System.out.println(((Ville)r.source).nom);
+		//System.out.println(((Ville)r.dest).nom);
 		r = null;
 		while (!VDC_copie.liste_noeud.isEmpty()) { // Tant que le circuit n’est
 													// pas
@@ -283,6 +285,7 @@ public class VDC extends Graphe {
 			// //reduit petit a petit sans savoir pk
 			for (Ville v_connu : H) { // Pour toutes les villes déjà dans le
 										// circuit
+				ht.clear();
 				for (Ville v_inconnu : liste_v) { // Pour toutes les villes à//
 													// visiter
 					for (Arc a : v_connu.liste_arc) { // Pour chaque route dont
@@ -321,11 +324,18 @@ public class VDC extends Graphe {
 				}
 
 			}
+			Chemin Hcopie = new Chemin("[IVPE]");
 			if (route_max != null) {
 				liste_v.remove((Ville) route_max.dest);
 				int index = H.indexOf(route_max.source);
-				H.addVille(index, (Ville) route_max.dest);
+				H.add(index+1, (Ville) route_max.dest);
 			}
+			/**
+			for(Ville v : H){
+				System.out.print(v.nom+" - ");
+			}
+			System.out.println();
+			*/
 		}
 		// retour au premier element
 		H.addVille(H.get(0));
