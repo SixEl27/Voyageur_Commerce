@@ -18,13 +18,13 @@ public class DessinVDC extends JComponent{
 
 	/**
 	 * Attributs
-	 * x,y				Coordonnées du dernier point du clic sur le composant
-	 * tailleVille		Taille en pixel des ellipses représentant les villes
-	 * listeEllipse		Liste d' ellipses représentant les villes
-	 * listeLigne		Liste de lignes 2D représentant arcs du graphe du voyageur de commerce
-	 * listeChemin		Liste de liste de lignes 2D représentant les arcs de chaque chemin
-	 * lienEllipseVille	table de hashage permettant a partir d'une ellipse d'avoir la ville qu'elle représente
-	 * formeEnCours		forme tracé lors du clic sur le composant
+	 * x,y					Coordonnées du dernier point du clic sur le composant
+	 * tailleVille			Taille en pixel des ellipses représentant les villes
+	 * listeEllipse			Liste d' ellipses représentant les villes
+	 * listeLigne			Liste de lignes 2D représentant arcs du graphe du voyageur de commerce
+	 * lienCheminCouleur	table de hashage permettant a partir d'un chemin d'avoir la couleur pour le dessiner
+	 * lienEllipseVille		table de hashage permettant a partir d'une ellipse d'avoir la ville qu'elle représente
+	 * formeEnCours			forme tracé lors du clic sur le composant
 	 */
 	int x,y;
 	double tailleVille=10;
@@ -32,7 +32,6 @@ public class DessinVDC extends JComponent{
 	ArrayList<Shape> listeEllipse;
 	ArrayList<Shape> listeLigne;
 	ArrayList<ArrayList<Shape>> listeChemin;
-	//ArrayList<Color> listeCouleurChemin;
 	HashMap<Chemin,Color> lienCheminCouleur;
 	HashMap<Shape, Ville> lienEllipseVille;
 	Shape formeEnCours;
@@ -45,7 +44,6 @@ public class DessinVDC extends JComponent{
 		listeEllipse =  new ArrayList<Shape>();
 		listeLigne =  new ArrayList<Shape>();
 		listeChemin =  new ArrayList<ArrayList<Shape>>();
-		//listeCouleurCheminlienCouleurChemin= new ArrayList<Color>();
 		lienCheminCouleur = new HashMap<Chemin,Color>();
 		lienEllipseVille = new HashMap<Shape, Ville>();
 		formeEnCours = null;
@@ -112,20 +110,31 @@ public class DessinVDC extends JComponent{
 
 	/**
 	 * getter de la liste de forme
-	 * @return
+	 * @return l'ellipse
 	 */
 	public Shape getFormeEnCours() {
 		return formeEnCours;
 	}
 	
+	/**
+	 * getter de la ville sous l'ellipse en cours
+	 * @return la ville selectionné sur le DessinVDC
+	 */
 	public Ville getVilleEnCours(){
 		return lienEllipseVille.get(formeEnCours);
 	}
 	
+	/**
+	 * Masquage de paintComponent
+	 * dessine :
+	 * - les arcs en blanc
+	 * - les noeud en gris
+	 * - les arcs des chemins dans leur couleur respective
+	 * - la forme en cours en noir
+	 */
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
-		g2.setColor(Color.BLUE);
 		for(int i=0;i<listeLigne.size();i++){
 			g2.setColor(Color.WHITE);
 			g2.draw(listeLigne.get(i));
@@ -134,18 +143,11 @@ public class DessinVDC extends JComponent{
 		for(int i=0;i<listeChemin.size();i++){
 			//on fixe sa couleur
 			g2.setColor(lienCheminCouleur.get(vdc.listeSolution.get(i)));
-			//g2.setColor(listeCouleurChemin.get(i));
 			//on dessine chaque arc le composant
 			for(Shape arc :listeChemin.get(i)){
 				g2.draw(arc);
 			}
 		}
-//		for(ArrayList al : listeChemin){
-//			g2.setColor(listeCouleurChemin.get(listeChemin.indexOf(al)));
-//			for(Shape arc :listeChemin.get(listeChemin.indexOf(al))){
-//				g2.draw(arc);
-//			}
-//		}
 		for(int i=0;i<listeEllipse.size();i++){
 			g2.setColor(Color.GRAY);
 			g2.fill(listeEllipse.get(i));
@@ -155,7 +157,10 @@ public class DessinVDC extends JComponent{
 			g2.draw(formeEnCours);
 
 	}
-	
+	/**
+	 * Va vider et recréer toutes les listes de formes du modele
+	 * @param modele Un objet type VDC
+	 */
 	public void Refresh(VDC modele){
 		this.vdc = modele;
 		listeEllipse.clear();
